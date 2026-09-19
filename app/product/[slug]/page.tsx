@@ -7,21 +7,11 @@ import { notFound, useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import { productsData } from '@/lib/teaData';
 import {
-  Star,
-  ShoppingBag,
-  ArrowRight,
-  ShieldCheck,
-  Leaf,
-  Sparkles,
-  Thermometer,
-  Clock,
-  RotateCcw,
-  Truck,
-  Check,
   Minus,
   Plus,
   ChevronDown,
   ChevronUp,
+  Check,
 } from 'lucide-react';
 
 interface ProductPageProps {
@@ -57,61 +47,60 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
   };
 
   return (
-    <div className="bg-parchment-50 min-h-screen py-8 lg:py-16">
+    <div className="bg-[#FAF7F2] min-h-screen py-10 lg:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb Navigation */}
-        <nav className="flex items-center gap-2 text-xs text-gray-500 mb-8 overflow-x-auto whitespace-nowrap">
-          <Link href="/" className="hover:text-tea-900 transition-colors">
-            Home
+        <nav className="flex items-center gap-2 text-xs font-serif text-[#74A287] mb-8 overflow-x-auto whitespace-nowrap">
+          <Link href="/" className="hover:text-[#182B22] transition-colors">
+            Garden
           </Link>
           <span>/</span>
-          <Link href="/products" className="hover:text-tea-900 transition-colors">
-            Collection
+          <Link href="/products" className="hover:text-[#182B22] transition-colors">
+            Harvests
           </Link>
           <span>/</span>
           <Link
             href={`/products?category=${encodeURIComponent(product.category)}`}
-            className="hover:text-tea-900 transition-colors"
+            className="hover:text-[#182B22] transition-colors"
           >
             {product.category}
           </Link>
           <span>/</span>
-          <span className="text-tea-950 font-semibold truncate">{product.title}</span>
+          <span className="text-[#182B22] font-semibold italic">{product.title}</span>
         </nav>
 
         {/* Product Showcase Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left: Visual Gallery */}
           <div className="lg:col-span-6 flex flex-col gap-4">
-            {/* Main Stage Image */}
-            <div className="relative aspect-square w-full rounded-3xl overflow-hidden bg-white border border-gray-100 shadow-luxury p-8 flex items-center justify-center">
+            <div className="relative aspect-square w-full bg-[#F4EFE6] border border-[#DDD2C0] p-8 flex items-center justify-center">
               <Image
                 src={activeImage}
                 alt={product.title}
                 fill
                 priority
-                className="object-contain p-6 hover:scale-105 transition-transform duration-500 drop-shadow-xl"
+                className="object-contain p-6"
               />
-              <div className="absolute top-4 left-4 flex flex-col gap-1.5">
-                <span className="rounded-full bg-tea-900 text-white px-3 py-1 text-[10px] font-bold uppercase tracking-wider shadow-sm">
+              <div className="absolute top-4 left-4 flex flex-col gap-1">
+                <span className="bg-[#182B22] text-[#FAF7F2] px-2.5 py-0.5 text-[9px] uppercase tracking-widest font-bold">
                   {product.category}
                 </span>
-                <span className="rounded-full bg-gold-100 text-gold-900 border border-gold-300 px-3 py-1 text-[10px] font-semibold">
+                <span className="bg-[#FAF7F2] text-[#895237] border border-[#DDD2C0] px-2.5 py-0.5 text-[9px] font-serif italic">
                   {product.harvest}
                 </span>
               </div>
             </div>
 
-            {/* Thumbnails Row */}
+            {/* Thumbnails */}
             <div className="flex items-center gap-3 overflow-x-auto pb-2 no-scrollbar">
               {allImages.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveImage(img)}
-                  className={`relative h-20 w-20 shrink-0 rounded-2xl overflow-hidden bg-white border-2 transition-all ${
+                  className={`relative h-20 w-20 shrink-0 border transition-all ${
                     activeImage === img
-                      ? 'border-gold-500 shadow-md scale-105'
-                      : 'border-gray-200 opacity-70 hover:opacity-100'
+                      ? 'border-[#182B22] opacity-100'
+                      : 'border-[#DDD2C0] opacity-60 hover:opacity-100'
                   }`}
                 >
                   <Image src={img} alt="Thumbnail" fill className="object-cover" />
@@ -119,105 +108,87 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
               ))}
             </div>
 
-            {/* Agro-Tech Terroir Highlight Card */}
-            <div className="rounded-2xl bg-white p-6 border border-gray-100 shadow-sm mt-4">
-              <h4 className="text-xs uppercase tracking-widest font-bold text-tea-900 mb-3 flex items-center gap-1.5">
-                <Leaf className="h-4 w-4 text-tea-600" /> Single-Estate Provenance
-              </h4>
-              <div className="grid grid-cols-2 gap-4 text-xs">
+            {/* Provenance Box */}
+            <div className="border border-[#DDD2C0] bg-[#F4EFE6] p-6 font-serif text-xs">
+              <span className="text-[10px] uppercase tracking-widest-estate font-sans font-bold text-[#74A287] block mb-3">
+                Estate Provenance & Plucking
+              </span>
+              <div className="grid grid-cols-2 gap-4 text-[#182B22]">
                 <div>
-                  <span className="text-gray-400 block">Origin Micro-Valley</span>
-                  <span className="font-semibold text-gray-800">{product.origin}</span>
+                  <span className="text-[#7A8E82] block text-[11px]">Origin Garden:</span>
+                  <span className="font-bold">{product.origin}</span>
                 </div>
                 <div>
-                  <span className="text-gray-400 block">Altitude / Elevation</span>
-                  <span className="font-semibold text-gray-800">{product.elevation}</span>
+                  <span className="text-[#7A8E82] block text-[11px]">Altitude:</span>
+                  <span className="font-bold">{product.elevation}</span>
                 </div>
                 <div>
-                  <span className="text-gray-400 block">Harvest Pluck Date</span>
-                  <span className="font-semibold text-gray-800">{product.harvest}</span>
+                  <span className="text-[#7A8E82] block text-[11px]">Harvest Pluck:</span>
+                  <span className="font-bold">{product.harvest}</span>
                 </div>
                 <div>
-                  <span className="text-gray-400 block">Caffeine Classification</span>
-                  <span className="font-semibold text-gold-700">{product.caffeineLevel} Caffeine</span>
+                  <span className="text-[#7A8E82] block text-[11px]">Botanical Species:</span>
+                  <span className="italic">{product.botanicalName || 'Camellia sinensis'}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right: Commercial Details, Stepper & Purchase */}
+          {/* Right: Editorial & Purchase Details in INR */}
           <div className="lg:col-span-6 flex flex-col">
-            {/* Title & Subtitle */}
-            <span className="text-xs uppercase tracking-[0.25em] font-bold text-gold-700 mb-1">
-              TIRMA Agro Tech Reserve
+            <span className="font-serif italic text-sm text-[#74A287] block mb-1">
+              TIRMA Single-Estate Release
             </span>
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-tea-950 leading-tight">
+
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#182B22] leading-tight">
               {product.title}
             </h1>
-            <p className="mt-2 text-base text-gray-500 font-serif italic">
+
+            <p className="mt-2 text-base text-[#5C6E64] font-serif italic">
               {product.subtitle}
             </p>
 
-            {/* Rating and Reviews Counter */}
-            <div className="mt-4 flex items-center gap-3">
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`h-4 w-4 ${
-                      i < Math.floor(product.rating)
-                        ? 'fill-gold-500 text-gold-500'
-                        : 'fill-gray-200 text-gray-200'
-                    }`}
-                  />
-                ))}
-              </div>
-              <span className="text-xs font-bold text-gray-800">{product.rating}</span>
-              <span className="text-xs text-gray-400">
-                ({product.reviewCount} Verified Sommelier Reviews)
-              </span>
-            </div>
-
-            {/* Price */}
-            <div className="mt-6 flex items-baseline gap-3 border-y border-gray-100 py-4">
-              <span className="font-serif text-3xl font-bold text-tea-950">
-                ${product.price.toFixed(2)}
+            {/* Price in INR */}
+            <div className="mt-6 flex items-baseline gap-3 border-y border-[#DDD2C0] py-4">
+              <span className="font-serif text-3xl font-bold text-[#182B22]">
+                ₹{product.price.toLocaleString('en-IN')}
               </span>
               {product.originalPrice && (
-                <span className="text-base text-gray-400 line-through">
-                  ${product.originalPrice.toFixed(2)}
+                <span className="font-serif text-base text-[#895237] line-through">
+                  ₹{product.originalPrice.toLocaleString('en-IN')}
                 </span>
               )}
-              <span className="rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-semibold text-green-700 border border-green-200 ml-auto">
-                In Stock • Fresh Agro Harvest
+              <span className="ml-auto text-xs font-serif italic text-[#315442]">
+                In Stock • Fresh Pluck
               </span>
             </div>
 
-            {/* Description */}
-            <p className="mt-6 text-sm sm:text-base text-gray-600 leading-relaxed">
+            {/* Story description */}
+            <p className="mt-6 text-sm sm:text-base text-[#475E52] font-serif leading-relaxed">
               {product.description}
             </p>
 
-            {/* Flavor Notes Badges */}
-            <div className="mt-6">
-              <span className="text-xs uppercase tracking-wider font-bold text-gray-700 block mb-2">
-                Aromatic & Flavor Spectrum:
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {product.flavorNotes.map((note) => (
-                  <span
-                    key={note}
-                    className="rounded-xl bg-white border border-gray-200 px-3 py-1.5 text-xs font-medium text-tea-900 shadow-sm"
-                  >
-                    {note}
-                  </span>
-                ))}
+            {/* Sensory Organoleptic Notes */}
+            <div className="mt-6 p-4 bg-[#F4EFE6] border border-[#DDD2C0] font-serif text-xs text-[#243F32] space-y-2">
+              <div>
+                <span className="font-sans text-[10px] uppercase tracking-wider font-bold text-[#895237] block">
+                  Aromatics & Palate:
+                </span>
+                <span className="italic leading-relaxed">{product.palateDescription || product.flavorNotes.join(' • ')}</span>
               </div>
+              {product.liquorColor && (
+                <div>
+                  <span className="font-sans text-[10px] uppercase tracking-wider font-bold text-[#895237] block">
+                    Liquor Appearance:
+                  </span>
+                  <span>{product.liquorColor}</span>
+                </div>
+              )}
             </div>
 
             {/* Package Size Picker */}
             <div className="mt-6">
-              <span className="text-xs uppercase tracking-wider font-bold text-gray-700 block mb-2">
+              <span className="text-[10px] uppercase tracking-widest font-bold text-[#182B22] block mb-2">
                 Select Package Format:
               </span>
               <div className="flex flex-wrap gap-2.5">
@@ -225,10 +196,10 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`rounded-xl px-4 py-2.5 text-xs font-semibold transition-all ${
+                    className={`px-4 py-2 text-xs font-serif transition-all border ${
                       selectedSize === size
-                        ? 'bg-tea-900 text-white shadow-md'
-                        : 'bg-white text-gray-700 border border-gray-200 hover:border-tea-400'
+                        ? 'bg-[#182B22] text-[#FAF7F2] border-[#182B22] font-semibold'
+                        : 'bg-white text-[#5C6E64] border-[#DDD2C0] hover:border-[#182B22]'
                     }`}
                   >
                     {size}
@@ -237,129 +208,96 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
               </div>
             </div>
 
-            {/* Quantity Stepper & Add to Bag Buttons */}
+            {/* Quantity Stepper & Add to Bag in INR */}
             <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
-              {/* Stepper */}
-              <div className="flex items-center rounded-xl border border-gray-200 bg-white p-1 shadow-sm w-full sm:w-auto justify-between sm:justify-normal">
+              <div className="flex items-center border border-[#DDD2C0] bg-white p-1 justify-between sm:justify-normal w-full sm:w-auto">
                 <button
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="rounded-lg p-2.5 text-gray-500 hover:bg-gray-100 hover:text-gray-800 transition-colors"
-                  aria-label="Decrease quantity"
+                  className="p-2 text-[#5C6E64] hover:text-[#182B22]"
                 >
-                  <Minus className="h-4 w-4" />
+                  <Minus className="h-3 w-3" />
                 </button>
-                <span className="px-5 text-sm font-bold text-gray-900">{quantity}</span>
+                <span className="px-4 text-xs font-serif font-bold text-[#182B22]">{quantity}</span>
                 <button
                   onClick={() => setQuantity((q) => q + 1)}
-                  className="rounded-lg p-2.5 text-gray-500 hover:bg-gray-100 hover:text-gray-800 transition-colors"
-                  aria-label="Increase quantity"
+                  className="p-2 text-[#5C6E64] hover:text-[#182B22]"
                 >
-                  <Plus className="h-4 w-4" />
+                  <Plus className="h-3 w-3" />
                 </button>
               </div>
 
-              {/* Add to Bag CTA */}
               <button
                 onClick={() => {
                   addToCart(product, selectedSize, quantity);
                   setIsCartOpen(true);
                 }}
-                className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-tea-900 py-4 px-6 text-sm font-semibold text-white hover:bg-tea-800 shadow-md hover:shadow-lg transition-all"
+                className="w-full sm:flex-1 bg-[#182B22] py-3.5 px-6 text-xs uppercase tracking-widest-estate font-bold text-[#FAF7F2] hover:bg-[#315442] transition-colors"
               >
-                <ShoppingBag className="h-4 w-4 text-gold-400" />
-                <span>Add {quantity} to Bag • ${(product.price * quantity).toFixed(2)}</span>
+                Add {quantity} to Bag • ₹{(product.price * quantity).toLocaleString('en-IN')}
               </button>
 
-              {/* Buy Now CTA */}
               <button
                 onClick={handleBuyNow}
-                className="w-full sm:w-auto rounded-xl bg-gold-500 py-4 px-6 text-sm font-bold text-tea-950 hover:bg-gold-400 shadow-md transition-all"
+                className="w-full sm:w-auto bg-[#DEC284] py-3.5 px-6 text-xs uppercase tracking-widest-estate font-bold text-[#182B22] hover:bg-[#FAF7F2] border border-[#DEC284] transition-colors"
               >
-                Buy Now
+                Instant Buy
               </button>
             </div>
 
-            {/* Guarantees row */}
-            <div className="mt-6 flex items-center justify-between text-xs text-gray-500 pt-4 border-t border-gray-100">
-              <span className="flex items-center gap-1.5">
-                <Truck className="h-4 w-4 text-tea-700" /> Free Eco-Shipping Over $50
+            {/* Brewing Guide Box */}
+            <div className="mt-8 bg-[#182B22] text-[#FAF7F2] p-6 border border-[#243F32]">
+              <span className="font-serif italic text-xs text-[#DEC284] block mb-2">
+                The Recommended Ceremony
               </span>
-              <span className="flex items-center gap-1.5">
-                <RotateCcw className="h-4 w-4 text-tea-700" /> 30-Day Freshness Guarantee
-              </span>
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck className="h-4 w-4 text-tea-700" /> 100% Certified Organic
-              </span>
-            </div>
-
-            {/* Brewing Guide Card */}
-            <div className="mt-8 rounded-2xl bg-tea-950 text-white p-6 shadow-xl relative overflow-hidden">
-              <div className="absolute right-0 top-0 -mr-10 -mt-10 w-40 h-40 rounded-full bg-gold-500/10 blur-xl pointer-events-none" />
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-serif text-base font-bold text-white flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-gold-400" /> Sommelier Brewing Protocol
-                </h3>
-                <span className="text-[10px] uppercase font-bold text-gold-400 tracking-wider">
-                  Optimal Extraction
-                </span>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-                <div className="rounded-xl bg-white/5 p-3 text-center border border-white/5">
-                  <Thermometer className="h-4 w-4 text-gold-400 mx-auto mb-1" />
-                  <span className="block text-[10px] text-tea-200">Water Temp</span>
-                  <span className="font-bold text-white">{product.brewingGuide.temp}</span>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-serif text-[#C7DBD0]">
+                <div>
+                  <span className="text-[#74A287] block text-[10px] uppercase font-sans">Water Heat</span>
+                  <span className="text-[#FAF7F2] font-bold">{product.brewingGuide.temp}</span>
                 </div>
-
-                <div className="rounded-xl bg-white/5 p-3 text-center border border-white/5">
-                  <Leaf className="h-4 w-4 text-gold-400 mx-auto mb-1" />
-                  <span className="block text-[10px] text-tea-200">Leaf Ratio</span>
-                  <span className="font-bold text-white truncate">{product.brewingGuide.ratio}</span>
+                <div>
+                  <span className="text-[#74A287] block text-[10px] uppercase font-sans">Leaf Ratio</span>
+                  <span className="text-[#FAF7F2] font-bold">{product.brewingGuide.ratio}</span>
                 </div>
-
-                <div className="rounded-xl bg-white/5 p-3 text-center border border-white/5">
-                  <Clock className="h-4 w-4 text-gold-400 mx-auto mb-1" />
-                  <span className="block text-[10px] text-tea-200">Steep Time</span>
-                  <span className="font-bold text-white">{product.brewingGuide.steepTime}</span>
+                <div>
+                  <span className="text-[#74A287] block text-[10px] uppercase font-sans">Steep Time</span>
+                  <span className="text-[#FAF7F2] font-bold">{product.brewingGuide.steepTime}</span>
                 </div>
-
-                <div className="rounded-xl bg-white/5 p-3 text-center border border-white/5">
-                  <RotateCcw className="h-4 w-4 text-gold-400 mx-auto mb-1" />
-                  <span className="block text-[10px] text-tea-200">Infusions</span>
-                  <span className="font-bold text-white">{product.brewingGuide.infusions} Steeps</span>
+                <div>
+                  <span className="text-[#74A287] block text-[10px] uppercase font-sans">Subsequent Steeps</span>
+                  <span className="text-[#FAF7F2] font-bold">{product.brewingGuide.infusions} Steeps</span>
                 </div>
               </div>
             </div>
 
-            {/* Accordion Tabs */}
-            <div className="mt-8 space-y-3">
-              {/* Tab 1: Story */}
-              <div className="rounded-xl bg-white border border-gray-100 overflow-hidden shadow-sm">
+            {/* Accordions */}
+            <div className="mt-6 border-t border-[#DDD2C0] divide-y divide-[#DDD2C0] font-serif">
+              {/* Tab 1 */}
+              <div>
                 <button
                   onClick={() => setActiveTab(activeTab === 'story' ? ('' as any) : 'story')}
-                  className="w-full flex items-center justify-between p-4 text-left font-serif text-sm font-bold text-gray-900"
+                  className="w-full flex items-center justify-between py-4 text-left font-serif text-sm font-bold text-[#182B22]"
                 >
-                  <span>Agro-Tech Cultivation & Terroir</span>
-                  {activeTab === 'story' ? <ChevronUp className="h-4 w-4 text-gray-400" /> : <ChevronDown className="h-4 w-4 text-gray-400" />}
+                  <span>The Story of This Garden Pluck</span>
+                  {activeTab === 'story' ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                 </button>
                 {activeTab === 'story' && (
-                  <div className="p-4 pt-0 text-xs text-gray-600 leading-relaxed border-t border-gray-50">
+                  <div className="pb-4 text-xs sm:text-sm text-[#5C6E64] leading-relaxed">
                     {product.story || product.description}
                   </div>
                 )}
               </div>
 
-              {/* Tab 2: Ingredients */}
-              <div className="rounded-xl bg-white border border-gray-100 overflow-hidden shadow-sm">
+              {/* Tab 2 */}
+              <div>
                 <button
                   onClick={() => setActiveTab(activeTab === 'ingredients' ? ('' as any) : 'ingredients')}
-                  className="w-full flex items-center justify-between p-4 text-left font-serif text-sm font-bold text-gray-900"
+                  className="w-full flex items-center justify-between py-4 text-left font-serif text-sm font-bold text-[#182B22]"
                 >
-                  <span>Certified Organic Ingredients</span>
-                  {activeTab === 'ingredients' ? <ChevronUp className="h-4 w-4 text-gray-400" /> : <ChevronDown className="h-4 w-4 text-gray-400" />}
+                  <span>Botanical Ingredients (Zero Additives)</span>
+                  {activeTab === 'ingredients' ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                 </button>
                 {activeTab === 'ingredients' && (
-                  <div className="p-4 pt-0 text-xs text-gray-600 leading-relaxed border-t border-gray-50">
+                  <div className="pb-4 text-xs sm:text-sm text-[#5C6E64] leading-relaxed">
                     <ul className="list-disc list-inside space-y-1">
                       {product.ingredients.map((ing) => (
                         <li key={ing}>{ing}</li>
@@ -369,21 +307,21 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
                 )}
               </div>
 
-              {/* Tab 3: Benefits */}
-              <div className="rounded-xl bg-white border border-gray-100 overflow-hidden shadow-sm">
+              {/* Tab 3 */}
+              <div>
                 <button
                   onClick={() => setActiveTab(activeTab === 'benefits' ? ('' as any) : 'benefits')}
-                  className="w-full flex items-center justify-between p-4 text-left font-serif text-sm font-bold text-gray-900"
+                  className="w-full flex items-center justify-between py-4 text-left font-serif text-sm font-bold text-[#182B22]"
                 >
-                  <span>Phytochemical Wellness Benefits</span>
-                  {activeTab === 'benefits' ? <ChevronUp className="h-4 w-4 text-gray-400" /> : <ChevronDown className="h-4 w-4 text-gray-400" />}
+                  <span>Wellness & Mindful Benefits</span>
+                  {activeTab === 'benefits' ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                 </button>
                 {activeTab === 'benefits' && (
-                  <div className="p-4 pt-0 text-xs text-gray-600 leading-relaxed border-t border-gray-50">
+                  <div className="pb-4 text-xs sm:text-sm text-[#5C6E64] leading-relaxed">
                     <ul className="space-y-1.5">
                       {product.benefits.map((b) => (
                         <li key={b} className="flex items-center gap-2">
-                          <Check className="h-3.5 w-3.5 text-tea-600 shrink-0" />
+                          <Check className="h-3 w-3 text-[#315442] shrink-0" />
                           <span>{b}</span>
                         </li>
                       ))}
@@ -395,56 +333,47 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
           </div>
         </div>
 
-        {/* Related Teas Recommendation */}
-        <div className="mt-24 pt-16 border-t border-gray-200">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <span className="text-xs uppercase tracking-widest font-bold text-gold-700">
-                You May Also Enjoy
-              </span>
-              <h3 className="font-serif text-2xl font-bold text-tea-950 mt-1">
-                Complementary Harvests
-              </h3>
-            </div>
-            <Link
-              href="/products"
-              className="text-xs uppercase font-bold text-tea-800 hover:text-gold-700 flex items-center gap-1"
-            >
-              View Full Collection <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
+        {/* Related Harvests */}
+        <div className="mt-24 pt-16 border-t border-[#DDD2C0]">
+          <span className="font-serif italic text-sm text-[#74A287] block mb-1">
+            Complementary Leaves
+          </span>
+          <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#182B22] mb-8">
+            You May Also Enjoy from This Harvest
+          </h3>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {relatedProducts.map((rel) => (
-              <div
-                key={rel.id}
-                className="group rounded-2xl bg-white border border-gray-100 overflow-hidden shadow-sm hover:shadow-luxury transition-all p-4 flex flex-col"
-              >
-                <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-tea-50 mb-3">
-                  <Image
-                    src={rel.mainImage}
-                    alt={rel.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform"
-                  />
+              <div key={rel.id} className="group flex flex-col justify-between">
+                <div>
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#F4EFE6] border border-[#DDD2C0] mb-3">
+                    <Link href={`/product/${rel.slug}`}>
+                      <Image
+                        src={rel.mainImage}
+                        alt={rel.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                    </Link>
+                  </div>
+                  <span className="text-[10px] uppercase font-serif italic text-[#74A287]">
+                    {rel.origin}
+                  </span>
+                  <Link href={`/product/${rel.slug}`}>
+                    <h4 className="font-serif text-base font-bold text-[#182B22] group-hover:text-[#315442] transition-colors line-clamp-1">
+                      {rel.title}
+                    </h4>
+                  </Link>
                 </div>
-                <span className="text-[10px] uppercase font-bold text-tea-600 tracking-wider">
-                  {rel.category}
-                </span>
-                <Link href={`/product/${rel.slug}`}>
-                  <h4 className="font-serif text-sm font-bold text-gray-900 group-hover:text-tea-800 transition-colors line-clamp-1 mt-0.5">
-                    {rel.title}
-                  </h4>
-                </Link>
-                <div className="mt-auto pt-3 flex items-center justify-between">
-                  <span className="text-sm font-bold text-tea-950 font-serif">
-                    ${rel.price.toFixed(2)}
+                <div className="mt-4 pt-2 border-t border-[#DDD2C0] flex items-center justify-between">
+                  <span className="font-serif text-sm font-bold text-[#182B22]">
+                    ₹{rel.price.toLocaleString('en-IN')}
                   </span>
                   <button
                     onClick={() => addToCart(rel)}
-                    className="rounded-lg bg-tea-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-gold-600 transition-colors"
+                    className="text-xs uppercase tracking-wider font-bold text-[#315442] underline"
                   >
-                    Add
+                    + Add
                   </button>
                 </div>
               </div>

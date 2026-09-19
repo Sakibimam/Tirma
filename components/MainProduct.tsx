@@ -5,168 +5,117 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
 import { productsData } from '@/lib/teaData';
-import {
-  Sparkles,
-  ShoppingBag,
-  ArrowRight,
-  Thermometer,
-  Clock,
-  RotateCcw,
-  CheckCircle2,
-} from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export const MainProduct: React.FC = () => {
   const { addToCart } = useCart();
-  const product = productsData.find((p) => p.isFeatured) || productsData[0];
+  const product = productsData[0];
   const [selectedImage, setSelectedImage] = useState(product.mainImage);
   const [selectedSize, setSelectedSize] = useState(product.packageSizes[0]);
 
   const allImages = [product.mainImage, ...product.extraPhotos];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-tea-950 via-tea-900 to-tea-950 text-white relative overflow-hidden border-y border-tea-800">
-      {/* Background ambient lighting */}
-      <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-gold-600/10 blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-tea-500/10 blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="py-24 bg-[#14241C] text-[#FAF7F2] border-y border-[#243F32]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left Visual Gallery */}
+          {/* Left: Product Images */}
           <div className="lg:col-span-6 flex flex-col items-center">
-            {/* Main Showcase Image */}
-            <div className="relative w-full max-w-lg aspect-square rounded-3xl overflow-hidden bg-white/5 p-8 border border-gold-500/20 shadow-2xl backdrop-blur-sm group">
+            <div className="relative w-full max-w-md aspect-square bg-[#1B3026] border border-[#2F4D3D] p-8">
               <Image
                 src={selectedImage}
                 alt={product.title}
                 fill
-                className="object-contain p-6 group-hover:scale-105 transition-transform duration-700 drop-shadow-[0_20px_35px_rgba(0,0,0,0.5)]"
+                className="object-contain p-6"
               />
-
-              <div className="absolute top-4 left-4 rounded-full bg-gold-500/20 border border-gold-400/40 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-gold-300 backdrop-blur-md">
-                Masterwork Selection
+              <div className="absolute top-4 left-4 font-serif italic text-xs text-[#DEC284]">
+                Solstice Reserve No. 01
               </div>
             </div>
 
             {/* Thumbnails */}
-            <div className="mt-6 flex items-center gap-3">
+            <div className="mt-4 flex items-center gap-3">
               {allImages.slice(0, 4).map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(img)}
-                  className={`relative h-16 w-16 rounded-xl overflow-hidden border-2 transition-all ${
+                  className={`relative h-16 w-16 border transition-all ${
                     selectedImage === img
-                      ? 'border-gold-400 scale-105 shadow-glow'
-                      : 'border-white/10 opacity-70 hover:opacity-100'
+                      ? 'border-[#DEC284] opacity-100'
+                      : 'border-[#2F4D3D] opacity-50 hover:opacity-100'
                   }`}
                 >
-                  <Image src={img} alt="Thumbnail" fill className="object-cover" />
+                  <Image src={img} alt="Thumb" fill className="object-cover" />
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Right Product Details & Agronomy Telemetry */}
+          {/* Right: Masterwork Narrative */}
           <div className="lg:col-span-6">
-            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] font-bold text-gold-400 mb-3">
-              <Sparkles className="h-4 w-4 text-gold-400" />
-              <span>Agro-Tech Flagship Reserve</span>
-            </div>
+            <span className="font-serif italic text-sm text-[#74A287] block mb-2">
+              The Flagship Masterwork
+            </span>
 
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#FAF7F2] leading-tight">
               {product.title}
             </h2>
 
-            <p className="mt-2 text-gold-300 font-serif italic text-lg">
+            <p className="mt-2 text-sm text-[#C7DBD0] font-serif italic">
               {product.subtitle}
             </p>
 
-            <p className="mt-5 text-sm sm:text-base text-tea-100/80 leading-relaxed">
+            <p className="mt-6 text-sm sm:text-base text-[#DCD4C7] font-serif leading-relaxed">
               {product.description}
             </p>
 
-            {/* Flavor Tasting Profile Radar / Meters */}
-            <div className="mt-8 rounded-2xl bg-white/5 border border-white/10 p-6 backdrop-blur-sm">
-              <h4 className="text-xs uppercase tracking-widest font-bold text-tea-200 mb-4">
-                Phytochemical Tasting Profile
-              </h4>
-
-              <div className="grid grid-cols-2 gap-4 text-xs">
-                <div>
-                  <div className="flex justify-between text-tea-100 mb-1">
-                    <span>Umami & Savory</span>
-                    <span className="text-gold-300 font-bold">5.0 / 5.0</span>
-                  </div>
-                  <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-gold-400 rounded-full w-full" />
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-tea-100 mb-1">
-                    <span>Natural Sweetness</span>
-                    <span className="text-gold-300 font-bold">4.5 / 5.0</span>
-                  </div>
-                  <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-gold-400 rounded-full w-[90%]" />
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-tea-100 mb-1">
-                    <span>Floral Aroma</span>
-                    <span className="text-gold-300 font-bold">4.8 / 5.0</span>
-                  </div>
-                  <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-gold-400 rounded-full w-[96%]" />
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-tea-100 mb-1">
-                    <span>Bitterness / Tannins</span>
-                    <span className="text-tea-300 font-bold">Very Low</span>
-                  </div>
-                  <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-tea-400 rounded-full w-[15%]" />
-                  </div>
-                </div>
+            {/* Sensory Organoleptic Breakdown */}
+            <div className="mt-8 border-y border-[#2F4D3D] py-6 space-y-3 font-serif">
+              <div className="flex flex-col sm:flex-row sm:justify-between text-xs text-[#C7DBD0]">
+                <span className="text-[#DEC284] uppercase tracking-wider text-[10px] font-sans font-semibold">
+                  Aromatics
+                </span>
+                <span>Steamed young bamboo, roasted chestnut, warm wild honey</span>
+              </div>
+              <div className="flex flex-col sm:flex-row sm:justify-between text-xs text-[#C7DBD0]">
+                <span className="text-[#DEC284] uppercase tracking-wider text-[10px] font-sans font-semibold">
+                  Mouthfeel & Palate
+                </span>
+                <span>Thick, velvet micro-crema, sweet vegetal umami, zero astringency</span>
+              </div>
+              <div className="flex flex-col sm:flex-row sm:justify-between text-xs text-[#C7DBD0]">
+                <span className="text-[#DEC284] uppercase tracking-wider text-[10px] font-sans font-semibold">
+                  Origin Terroir
+                </span>
+                <span>{product.origin} • {product.elevation}</span>
               </div>
             </div>
 
-            {/* Brewing Protocol Quick Guide */}
-            <div className="mt-6 grid grid-cols-3 gap-3">
-              <div className="rounded-xl bg-white/5 p-3.5 border border-white/5 text-center">
-                <Thermometer className="h-4 w-4 text-gold-400 mx-auto mb-1" />
-                <span className="block text-[10px] text-tea-200">Water Temp</span>
-                <span className="text-xs font-bold text-white">{product.brewingGuide.temp}</span>
-              </div>
-
-              <div className="rounded-xl bg-white/5 p-3.5 border border-white/5 text-center">
-                <Clock className="h-4 w-4 text-gold-400 mx-auto mb-1" />
-                <span className="block text-[10px] text-tea-200">Whisk Duration</span>
-                <span className="text-xs font-bold text-white">40 Seconds</span>
-              </div>
-
-              <div className="rounded-xl bg-white/5 p-3.5 border border-white/5 text-center">
-                <RotateCcw className="h-4 w-4 text-gold-400 mx-auto mb-1" />
-                <span className="block text-[10px] text-tea-200">Origin Terroir</span>
-                <span className="text-xs font-bold text-white truncate">Uji Highlands</span>
-              </div>
+            {/* Brewing Method Card */}
+            <div className="mt-6 bg-[#1B3026] p-4 border border-[#2F4D3D] text-xs font-serif text-[#C7DBD0]">
+              <span className="font-sans text-[10px] uppercase tracking-widest text-[#DEC284] font-bold block mb-1">
+                The Gentle Steep
+              </span>
+              <p className="leading-relaxed">
+                Whisk 2g with 70ml of spring water cooled to 75°C using a 100-prong bamboo chasen. Drink immediately while the froth floats like silk.
+              </p>
             </div>
 
             {/* Size & Purchase */}
-            <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <div className="mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
               <div>
-                <span className="text-xs text-tea-300 block mb-2 font-medium">Select Packaging:</span>
+                <span className="text-[11px] uppercase tracking-widest text-[#74A287] block mb-2">
+                  Select Format:
+                </span>
                 <div className="flex gap-2">
                   {product.packageSizes.map((size) => (
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
+                      className={`px-3 py-1 text-xs border transition-colors ${
                         selectedSize === size
-                          ? 'bg-gold-500 text-tea-950 font-bold shadow-md'
-                          : 'bg-white/10 text-white hover:bg-white/20'
+                          ? 'bg-[#FAF7F2] text-[#182B22] border-[#FAF7F2] font-semibold'
+                          : 'bg-transparent text-[#DCD4C7] border-[#2F4D3D] hover:border-[#DEC284]'
                       }`}
                     >
                       {size}
@@ -177,18 +126,17 @@ export const MainProduct: React.FC = () => {
 
               <div className="flex items-center gap-4">
                 <div>
-                  <span className="text-2xl sm:text-3xl font-serif font-bold text-gold-300">
-                    ${product.price.toFixed(2)}
+                  <span className="font-serif text-2xl font-bold text-[#DEC284]">
+                    ₹{product.price.toLocaleString('en-IN')}
                   </span>
-                  <span className="block text-[10px] text-tea-300">In Stock • Fresh Batch</span>
+                  <span className="block text-[10px] text-[#74A287]">Fresh Pluck Sealed at Garden</span>
                 </div>
 
                 <button
                   onClick={() => addToCart(product, selectedSize)}
-                  className="inline-flex items-center gap-2 rounded-xl bg-gold-500 px-6 py-3.5 text-sm font-bold text-tea-950 shadow-lg hover:bg-gold-400 transition-colors"
+                  className="bg-[#DEC284] text-[#182B22] px-6 py-3 text-xs uppercase tracking-widest-estate font-bold hover:bg-[#FAF7F2] transition-colors"
                 >
-                  <ShoppingBag className="h-4 w-4" />
-                  <span>Add to Bag</span>
+                  Add to Bag
                 </button>
               </div>
             </div>

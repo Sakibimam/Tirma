@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, X, ArrowRight, Sparkles } from 'lucide-react';
+import { Search, X, ArrowRight } from 'lucide-react';
 import { productsData } from '@/lib/teaData';
 import { Product } from '@/types';
 
@@ -53,37 +53,35 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 px-4 bg-tea-950/70 backdrop-blur-md transition-all">
-      <div className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-tea-100 overflow-hidden animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 px-4 bg-[#0C1712]/70 backdrop-blur-sm transition-all">
+      <div className="w-full max-w-2xl bg-[#FAF7F2] border border-[#DDD2C0] shadow-2xl overflow-hidden animate-fade-in">
         {/* Search header */}
-        <div className="relative flex items-center border-b border-gray-100 px-6 py-4">
-          <Search className="h-5 w-5 text-tea-700" />
+        <div className="relative flex items-center border-b border-[#EAE2D5] px-6 py-4 bg-[#F4EFE6]">
+          <Search className="h-4 w-4 text-[#315442]" />
           <input
             type="text"
-            placeholder="Search organic teas, matcha, origins, or flavor notes..."
+            placeholder="Search organic harvests, origins, botanicals (e.g. Saffron, Chamomile, Uji)..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             autoFocus
-            className="w-full bg-transparent px-4 py-2 text-base text-gray-800 placeholder-gray-400 focus:outline-none"
+            className="w-full bg-transparent px-4 py-1 text-sm font-serif text-[#182B22] placeholder-[#74A287] focus:outline-none"
           />
           <button
             onClick={onClose}
-            className="rounded-full p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition-colors"
+            className="p-1.5 text-[#5C6E64] hover:text-[#182B22] transition-colors"
           >
-            <X className="h-5 w-5" />
+            <X className="h-4 w-4" />
           </button>
         </div>
 
         {/* Quick Suggestion Tags */}
-        <div className="bg-parchment-50 px-6 py-3 border-b border-gray-100 flex flex-wrap items-center gap-2 text-xs">
-          <span className="text-gray-400 flex items-center gap-1 font-medium">
-            <Sparkles className="h-3 w-3 text-gold-500" /> Popular:
-          </span>
-          {['Matcha', 'Sencha', 'Silver Needle', 'Oolong', 'L-Theanine', 'Floral'].map((tag) => (
+        <div className="bg-[#FAF7F2] px-6 py-2.5 border-b border-[#EAE2D5] flex flex-wrap items-center gap-2 text-xs font-serif">
+          <span className="text-[#74A287] italic">Explore:</span>
+          {['Matcha', 'Silver Needle', 'Jade Sencha', 'Kashmiri Kahwa', 'Darjeeling', 'Chamomile'].map((tag) => (
             <button
               key={tag}
               onClick={() => setQuery(tag)}
-              className="rounded-full bg-white px-3 py-1 text-tea-800 border border-gray-200 hover:border-tea-500 hover:text-tea-900 transition-colors"
+              className="border border-[#DDD2C0] bg-white px-2.5 py-0.5 text-[#182B22] hover:border-[#182B22] transition-colors text-[11px]"
             >
               {tag}
             </button>
@@ -94,55 +92,55 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
         <div className="max-h-[60vh] overflow-y-auto p-6">
           {query.trim() === '' ? (
             <div className="text-center py-8">
-              <p className="text-sm text-gray-500">
-                Type above to discover organic single-estate teas, ceremonial matcha, and botanical infusions.
+              <p className="font-serif italic text-sm text-[#5C6E64]">
+                Type above to discover single-estate harvests, ceremonial matcha, and botanical tisanes.
               </p>
             </div>
           ) : results.length > 0 ? (
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-[#EAE2D5]">
               {results.map((product) => (
                 <Link
                   key={product.id}
                   href={`/product/${product.slug}`}
                   onClick={onClose}
-                  className="group flex items-center gap-4 py-3 hover:bg-parchment-50 px-3 rounded-xl transition-colors"
+                  className="group flex items-center gap-4 py-3 hover:bg-[#F4EFE6] px-3 transition-colors"
                 >
-                  <div className="relative h-14 w-14 rounded-lg overflow-hidden bg-tea-50 shrink-0 border border-tea-100">
+                  <div className="relative h-14 w-14 overflow-hidden bg-[#FAF7F2] border border-[#DDD2C0] shrink-0">
                     <Image
                       src={product.mainImage}
                       alt={product.title}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform"
+                      className="object-cover"
                     />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] uppercase tracking-wider font-semibold text-tea-600 bg-tea-50 px-2 py-0.5 rounded">
+                      <span className="text-[9px] uppercase tracking-wider font-semibold text-[#315442]">
                         {product.category}
                       </span>
-                      <span className="text-xs text-gray-400">{product.origin}</span>
+                      <span className="text-xs font-serif italic text-[#74A287]">{product.origin}</span>
                     </div>
-                    <h4 className="text-sm font-semibold text-gray-900 truncate group-hover:text-tea-700 transition-colors">
+                    <h4 className="font-serif text-sm font-bold text-[#182B22] truncate group-hover:text-[#315442] transition-colors">
                       {product.title}
                     </h4>
-                    <p className="text-xs text-gray-500 truncate">
+                    <p className="text-xs font-serif text-[#5C6E64] truncate italic">
                       {product.flavorNotes.join(' • ')}
                     </p>
                   </div>
                   <div className="text-right shrink-0">
-                    <span className="text-sm font-semibold text-tea-900">
-                      ${product.price.toFixed(2)}
+                    <span className="font-serif text-sm font-bold text-[#182B22]">
+                      ₹{product.price.toLocaleString('en-IN')}
                     </span>
-                    <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-tea-700 group-hover:translate-x-1 transition-all ml-auto mt-1" />
+                    <ArrowRight className="h-3.5 w-3.5 text-[#5C6E64] group-hover:text-[#182B22] group-hover:translate-x-1 transition-all ml-auto mt-1" />
                   </div>
                 </Link>
               ))}
             </div>
           ) : (
             <div className="text-center py-10">
-              <p className="text-gray-600 font-medium">No teas found for &ldquo;{query}&rdquo;</p>
-              <p className="text-xs text-gray-400 mt-1">
-                Try searching for &quot;Matcha&quot;, &quot;Sencha&quot;, or &quot;Oolong&quot;
+              <p className="font-serif text-[#182B22] text-sm">No botanicals found for &ldquo;{query}&rdquo;</p>
+              <p className="text-xs font-serif italic text-[#5C6E64] mt-1">
+                Try searching for &quot;Matcha&quot;, &quot;Sencha&quot;, or &quot;Kahwa&quot;
               </p>
             </div>
           )}

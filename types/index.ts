@@ -3,9 +3,10 @@ export interface Product {
   slug: string;
   title: string;
   subtitle: string;
+  botanicalName?: string;
   category: 'Green Tea' | 'Matcha' | 'Black Tea' | 'Oolong Tea' | 'Herbal & Tisane' | 'Accessories';
-  price: number;
-  originalPrice?: number;
+  price: number; // In INR (₹)
+  originalPrice?: number; // In INR (₹)
   rating: number;
   reviewCount: number;
   mainImage: string;
@@ -16,19 +17,17 @@ export interface Product {
   origin: string;
   elevation: string;
   harvest: string;
+  pluckingStandard?: string;
+  liquorColor?: string;
   flavorNotes: string[];
+  palateDescription?: string;
   caffeineLevel: 'None' | 'Low' | 'Medium' | 'High';
-  tastingProfile: {
-    umami: number;
-    sweetness: number;
-    astringency: number;
-    aroma: number;
-  };
   brewingGuide: {
     temp: string;
     ratio: string;
     steepTime: string;
     infusions: number;
+    vessel?: string;
   };
   ingredients: string[];
   benefits: string[];
@@ -44,7 +43,7 @@ export interface Recipe {
   title: string;
   subtitle: string;
   prepTime: string;
-  difficulty: 'Easy' | 'Intermediate' | 'Artisanal';
+  difficulty: 'Simple' | 'Gentle' | 'Ritual';
   servings: number;
   category: string;
   image: string;
@@ -60,6 +59,7 @@ export interface JournalPost {
   id: string;
   slug: string;
   title: string;
+  chapter?: string;
   excerpt: string;
   category: string;
   readTime: string;
@@ -104,8 +104,8 @@ export interface Order {
   orderNumber: string;
   date: string;
   items: CartItem[];
-  total: number;
-  status: 'Processing' | 'Quality Check' | 'Dispatched' | 'Delivered';
+  total: number; // In INR (₹)
+  status: 'Received at Estate' | 'Leaves Selected' | 'Hand-Packaged' | 'Dispatched';
   trackingNumber: string;
   shippingAddress: {
     name: string;

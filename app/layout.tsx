@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Inter, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
 import { UserProvider } from '@/context/UserContext';
@@ -11,16 +11,18 @@ const inter = Inter({
   display: 'swap',
 });
 
-const playfair = Playfair_Display({
+const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
   variable: '--font-serif',
   display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: 'TIRMA AGRO TECH | Technology Rooted In Nature | Organic Tea & Matcha',
+  title: 'TIRMA — Pure Single-Estate Organic & Herbal Teas',
   description:
-    'Single-estate certified organic whole leaf teas, stone-ground ceremonial matcha, and botanical tisanes. Precision agro-tech cultivation meeting generational artisan craftsmanship.',
+    'Artisanal whole-leaf teas, stone-ground ceremonial matcha, and botanical tisanes harvested from mist-shrouded high-elevation mountain gardens. Rooted in living soil and mindful brewing rituals.',
   icons: {
     icon: '/logo.jpeg',
     apple: '/logo.jpeg',
@@ -33,8 +35,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} scroll-smooth`}>
-      <body className="min-h-screen flex flex-col font-sans bg-parchment-50 text-tea-950 antialiased selection:bg-gold-400 selection:text-tea-950">
+    <html lang="en" className={`${inter.variable} ${cormorant.variable} scroll-smooth`}>
+      <body className="min-h-screen flex flex-col font-sans bg-[#FAF7F2] text-[#16261E] antialiased selection:bg-[#3D6A52] selection:text-[#FAF7F2]">
         <UserProvider>
           <CartProvider>
             <Navbar />

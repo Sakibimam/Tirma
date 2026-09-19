@@ -27,8 +27,8 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-const FREE_SHIPPING_THRESHOLD = 50.0;
-const STANDARD_SHIPPING_FEE = 7.5;
+const FREE_SHIPPING_THRESHOLD = 1499; // ₹1,499 for free delivery across India
+const STANDARD_SHIPPING_FEE = 120; // ₹120 standard eco-parcel delivery
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -37,7 +37,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [discountPercentage, setDiscountPercentage] = useState(0);
   const [notificationMessage, setNotificationMessage] = useState<string | null>(null);
 
-  // Load from localStorage on mount
   useEffect(() => {
     try {
       const savedCart = localStorage.getItem('tirma_cart');
@@ -55,7 +54,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
-  // Save to localStorage when cart changes
   useEffect(() => {
     try {
       localStorage.setItem('tirma_cart', JSON.stringify(cartItems));
@@ -132,14 +130,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setDiscountCode(cleanCode);
       setDiscountPercentage(10);
       localStorage.setItem('tirma_discount', JSON.stringify({ code: cleanCode, percentage: 10 }));
-      return { success: true, message: 'Promo code applied! 10% off your entire order.' };
+      return { success: true, message: 'Harvest voucher applied! 10% off your entire order.' };
     } else if (cleanCode === 'HARVEST20') {
       setDiscountCode(cleanCode);
       setDiscountPercentage(20);
       localStorage.setItem('tirma_discount', JSON.stringify({ code: cleanCode, percentage: 20 }));
-      return { success: true, message: 'Special Harvest code applied! 20% discount activated.' };
+      return { success: true, message: 'Special Estate voucher applied! 20% discount activated.' };
     } else {
-      return { success: false, message: 'Invalid or expired promo code. Try "ORGANIC10".' };
+      return { success: false, message: 'Invalid voucher code. Try "ORGANIC10".' };
     }
   };
 
@@ -155,7 +153,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return acc + item.product.price * item.quantity;
   }, 0);
 
-  const discountAmount = (subtotal * discountPercentage) / 100;
+  const discountAmount = Math.round((subtotal * discountPercentage) / 100);
   const subtotalAfterDiscount = subtotal - discountAmount;
   const shipping = subtotalAfterDiscount >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : STANDARD_SHIPPING_FEE;
   const finalTotal = subtotalAfterDiscount + shipping;

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useUser } from '@/context/UserContext';
-import { X, User, Lock, Mail, Award, Package, LogOut, CheckCircle, ArrowRight } from 'lucide-react';
+import { X, User, Lock, Mail, Award, Package, LogOut, CheckCircle } from 'lucide-react';
 
 export const UserAuthModal: React.FC = () => {
   const { user, isLoggedIn, isUserModalOpen, setIsUserModalOpen, login, logout, orders } = useUser();
@@ -20,64 +20,63 @@ export const UserAuthModal: React.FC = () => {
     if (!email) return;
 
     login(email, name || undefined);
-    setSuccessNotice(activeTab === 'signin' ? 'Welcome back!' : 'Account registered successfully!');
+    setSuccessNotice(activeTab === 'signin' ? 'Welcome back to the Tea Society.' : 'Patron account established.');
     setTimeout(() => {
       setSuccessNotice(null);
     }, 2000);
   };
 
   const handleDemoLogin = () => {
-    login('connoisseur@tirma-tea.org', 'Eleanor Vance');
-    setSuccessNotice('Signed in with Connoisseur Demo Account');
+    login('arjun.varma@tirma-tea.org', 'Arjun Varma');
+    setSuccessNotice('Signed in with Patron Demo Account');
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-tea-950/70 backdrop-blur-sm transition-all">
-      <div className="relative w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl border border-tea-100 animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0C1712]/70 backdrop-blur-sm transition-all">
+      <div className="relative w-full max-w-md bg-[#FAF7F2] border border-[#DDD2C0] shadow-2xl p-8 sm:p-10 animate-fade-in">
         {/* Close Button */}
         <button
           onClick={() => setIsUserModalOpen(false)}
-          className="absolute right-4 top-4 z-10 rounded-full p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition-colors"
+          className="absolute right-4 top-4 p-1 text-[#7A8E82] hover:text-[#182B22] transition-colors"
         >
           <X className="h-5 w-5" />
         </button>
 
         {isLoggedIn && user ? (
-          /* Logged In View */
-          <div className="p-8">
-            <div className="flex items-center gap-4 border-b border-gray-100 pb-6">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-tea-100 text-tea-800 font-serif text-2xl font-bold">
+          /* Logged In Patron Profile */
+          <div>
+            <div className="flex items-center gap-4 border-b border-[#EAE2D5] pb-6">
+              <div className="flex h-12 w-12 items-center justify-center bg-[#182B22] text-[#FAF7F2] font-serif text-xl font-bold">
                 {user.name.charAt(0)}
               </div>
               <div>
-                <h3 className="text-xl font-bold text-gray-900">{user.name}</h3>
-                <p className="text-xs text-gray-500">{user.email}</p>
+                <h3 className="font-serif text-xl font-bold text-[#182B22]">{user.name}</h3>
+                <p className="text-xs text-[#5C6E64] font-serif italic">{user.email}</p>
                 <div className="mt-1 flex items-center gap-1.5">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-gold-100 px-2.5 py-0.5 text-[11px] font-semibold text-gold-800">
-                    <Award className="h-3 w-3 text-gold-600" />
+                  <span className="text-[10px] uppercase tracking-wider font-semibold text-[#895237]">
                     {user.membershipTier}
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Loyalty Points Banner */}
-            <div className="my-6 rounded-xl bg-gradient-to-br from-tea-900 to-tea-800 p-5 text-white shadow-md">
+            {/* Loyalty Points Banner in INR */}
+            <div className="my-6 bg-[#182B22] p-5 text-[#FAF7F2] border border-[#243F32]">
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-xs font-medium uppercase tracking-wider text-tea-200">
-                    Organic Rewards Points
+                  <span className="text-[10px] uppercase tracking-widest text-[#74A287]">
+                    Harvest Allocation Points
                   </span>
-                  <div className="mt-1 text-2xl font-bold text-gold-300">
+                  <div className="mt-1 font-serif text-2xl font-bold text-[#DEC284]">
                     {user.loyaltyPoints} pts
                   </div>
                 </div>
-                <div className="rounded-lg bg-white/10 px-3 py-1.5 text-xs text-tea-100 backdrop-blur-sm">
-                  $15 Reward Available
+                <div className="border border-[#DEC284] px-2.5 py-1 text-[11px] text-[#DEC284] font-serif">
+                  ₹350 Credit Available
                 </div>
               </div>
-              <p className="mt-2 text-xs text-tea-200/80">
-                Earn 1 point per $1 spent on all single-origin harvests.
+              <p className="mt-2 text-xs text-[#C7DBD0] font-serif">
+                Earn 1 point per ₹10 spent on single-estate releases.
               </p>
             </div>
 
@@ -86,24 +85,24 @@ export const UserAuthModal: React.FC = () => {
               <Link
                 href="/orders"
                 onClick={() => setIsUserModalOpen(false)}
-                className="flex items-center justify-between rounded-xl border border-gray-200 p-3.5 hover:bg-parchment-50 hover:border-tea-300 transition-colors"
+                className="flex items-center justify-between border border-[#DDD2C0] bg-white p-3 hover:border-[#182B22] transition-colors"
               >
                 <div className="flex items-center gap-3">
-                  <Package className="h-5 w-5 text-tea-700" />
-                  <span className="text-sm font-semibold text-gray-800">
-                    My Orders & Shipments
+                  <Package className="h-4 w-4 text-[#315442]" />
+                  <span className="font-serif text-sm font-semibold text-[#182B22]">
+                    My Shipments & Orders
                   </span>
                 </div>
-                <span className="rounded-full bg-tea-50 px-2 py-0.5 text-xs font-bold text-tea-700">
+                <span className="font-serif text-xs font-bold text-[#315442]">
                   {orders.length}
                 </span>
               </Link>
             </div>
 
-            <div className="mt-6 border-t border-gray-100 pt-4">
+            <div className="mt-6 border-t border-[#EAE2D5] pt-4">
               <button
                 onClick={logout}
-                className="flex w-full items-center justify-center gap-2 rounded-xl border border-red-200 py-3 text-sm font-semibold text-red-600 hover:bg-red-50 transition-colors"
+                className="flex w-full items-center justify-center gap-2 border border-red-200 py-2.5 text-xs uppercase tracking-wider font-bold text-red-700 hover:bg-red-50 transition-colors"
               >
                 <LogOut className="h-4 w-4" />
                 Sign Out
@@ -111,36 +110,36 @@ export const UserAuthModal: React.FC = () => {
             </div>
           </div>
         ) : (
-          /* Sign In / Register Tabs */
-          <div className="p-8">
+          /* Sign In / Register */
+          <div>
             <div className="text-center mb-6">
-              <span className="text-xs uppercase tracking-widest text-gold-600 font-semibold">
-                Tirma Agro Tech
+              <span className="font-serif italic text-xs text-[#895237]">
+                Tirma Tea Society
               </span>
-              <h3 className="font-serif text-2xl font-bold text-gray-900 mt-1">
-                Connoisseur Portal
+              <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#182B22] mt-1">
+                Patron Portal
               </h3>
-              <p className="text-xs text-gray-500 mt-1">
-                Sign in to track orders, earn rewards, and access limited harvest allocations.
+              <p className="text-xs text-[#5C6E64] font-serif mt-1">
+                Sign in to track garden dispatches and reserve seasonal spring allocations.
               </p>
             </div>
 
             {successNotice && (
-              <div className="mb-4 flex items-center gap-2 rounded-lg bg-green-50 p-3 text-xs font-medium text-green-800 border border-green-200">
-                <CheckCircle className="h-4 w-4 text-green-600 shrink-0" />
+              <div className="mb-4 flex items-center gap-2 bg-[#E4EFE8] p-3 text-xs font-serif text-[#182B22] border border-[#74A287]">
+                <CheckCircle className="h-4 w-4 text-[#315442] shrink-0" />
                 {successNotice}
               </div>
             )}
 
             {/* Tabs */}
-            <div className="flex rounded-lg bg-gray-100 p-1 mb-6">
+            <div className="flex border-b border-[#DDD2C0] mb-6">
               <button
                 type="button"
                 onClick={() => setActiveTab('signin')}
-                className={`flex-1 rounded-md py-2 text-xs font-semibold transition-all ${
+                className={`flex-1 py-2 text-xs uppercase tracking-widest font-bold transition-colors ${
                   activeTab === 'signin'
-                    ? 'bg-white text-tea-900 shadow-sm'
-                    : 'text-gray-500 hover:text-gray-900'
+                    ? 'border-b-2 border-[#182B22] text-[#182B22]'
+                    : 'text-[#7A8E82] hover:text-[#182B22]'
                 }`}
               >
                 Sign In
@@ -148,91 +147,82 @@ export const UserAuthModal: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setActiveTab('register')}
-                className={`flex-1 rounded-md py-2 text-xs font-semibold transition-all ${
+                className={`flex-1 py-2 text-xs uppercase tracking-widest font-bold transition-colors ${
                   activeTab === 'register'
-                    ? 'bg-white text-tea-900 shadow-sm'
-                    : 'text-gray-500 hover:text-gray-900'
+                    ? 'border-b-2 border-[#182B22] text-[#182B22]'
+                    : 'text-[#7A8E82] hover:text-[#182B22]'
                 }`}
               >
-                Create Account
+                Inscribe
               </button>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               {activeTab === 'register' && (
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 mb-1">
-                    Full Name
+                  <label className="block text-xs font-serif text-[#182B22] mb-1">
+                    Your Full Name
                   </label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                    <input
-                      type="text"
-                      required
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="e.g. Julian Montgomery"
-                      className="w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:border-tea-500 focus:outline-none"
-                    />
-                  </div>
+                  <input
+                    type="text"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Arjun Varma"
+                    className="w-full border border-[#DDD2C0] bg-white p-2.5 text-xs text-[#182B22] focus:border-[#182B22] focus:outline-none"
+                  />
                 </div>
               )}
 
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                <label className="block text-xs font-serif text-[#182B22] mb-1">
                   Email Address
                 </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="tea.lover@example.com"
-                    className="w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:border-tea-500 focus:outline-none"
-                  />
-                </div>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="patron@tirma-tea.org"
+                  className="w-full border border-[#DDD2C0] bg-white p-2.5 text-xs text-[#182B22] focus:border-[#182B22] focus:outline-none"
+                />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                <label className="block text-xs font-serif text-[#182B22] mb-1">
                   Password
                 </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                  <input
-                    type="password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    className="w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:border-tea-500 focus:outline-none"
-                  />
-                </div>
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full border border-[#DDD2C0] bg-white p-2.5 text-xs text-[#182B22] focus:border-[#182B22] focus:outline-none"
+                />
               </div>
 
               <button
                 type="submit"
-                className="w-full rounded-xl bg-tea-800 py-3 text-sm font-semibold text-white shadow-md hover:bg-tea-900 transition-colors"
+                className="w-full bg-[#182B22] py-3 text-xs uppercase tracking-widest-estate font-bold text-[#FAF7F2] hover:bg-[#315442] transition-colors"
               >
-                {activeTab === 'signin' ? 'Sign In' : 'Join The Tea Society'}
+                {activeTab === 'signin' ? 'Enter Patron Portal' : 'Join The Society'}
               </button>
             </form>
 
             <div className="relative my-6 text-center">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-200" />
+                <div className="w-full border-t border-[#DDD2C0]" />
               </div>
-              <span className="relative bg-white px-3 text-xs text-gray-400">or</span>
+              <span className="relative bg-[#FAF7F2] px-3 font-serif italic text-xs text-[#7A8E82]">or</span>
             </div>
 
             <button
               type="button"
               onClick={handleDemoLogin}
-              className="flex w-full items-center justify-center gap-2 rounded-xl border border-gold-400/50 bg-gold-50/50 py-2.5 text-xs font-semibold text-gold-900 hover:bg-gold-100 transition-colors"
+              className="w-full border border-[#895237] py-2.5 text-xs font-serif italic text-[#895237] hover:bg-[#EAE2D5] transition-colors"
             >
-              <span>⚡ One-Click Demo Sign In</span>
+              1-Click Patron Demo Sign In
             </button>
           </div>
         )}

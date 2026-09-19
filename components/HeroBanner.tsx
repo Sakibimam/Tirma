@@ -3,160 +3,124 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Sparkles, ArrowRight, ShieldCheck, Leaf, Award, Clock } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { productsData } from '@/lib/teaData';
+import { ArrowRight } from 'lucide-react';
 
 export const HeroBanner: React.FC = () => {
   const { addToCart } = useCart();
-  const featuredProduct = productsData.find((p) => p.isBanner) || productsData[0];
+  const matcha = productsData[0];
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-parchment-100 via-parchment-50 to-white pt-8 pb-16 lg:py-24 border-b border-tea-100/60">
-      {/* Subtle organic leaf background glow */}
-      <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-tea-100/40 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-10 w-80 h-80 rounded-full bg-gold-200/30 blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="relative overflow-hidden bg-[#F4EFE6] border-b border-[#EAE2D5] pt-12 pb-20 lg:pt-20 lg:pb-28">
+      {/* Delicate background paper texture accents */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Editorial Copy */}
-          <div className="lg:col-span-7 text-center lg:text-left">
-            {/* Top Organic Harvest Badge */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-gold-50/80 px-4 py-1.5 text-xs font-semibold text-gold-900 shadow-sm backdrop-blur-sm mb-6">
-              <span className="flex h-2 w-2 rounded-full bg-tea-600 animate-pulse" />
-              <span className="uppercase tracking-widest text-[11px] font-bold text-tea-800">
-                Spring 2026 First Flush
+          {/* Left: Editorial Storytelling */}
+          <div className="lg:col-span-7 text-left">
+            <div className="flex items-center gap-2 mb-6">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#3D6A52]" />
+              <span className="font-serif italic text-sm text-[#74A287]">
+                Monograph No. 26 — The Mountain Spring Pluck
               </span>
-              <span className="text-gold-500">•</span>
-              <span className="text-gray-600">Bio-Dynamic Agro-Tech Certified</span>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-tea-950 leading-[1.15]">
-              Technology Rooted in Nature.
-              <span className="block italic text-gold-700 font-normal mt-1">
-                Elevate Your Daily Tea Ritual.
-              </span>
+            <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-[#182B22] leading-[1.08]">
+              From the quiet cloud line <br />
+              <span className="italic font-light text-[#895237]">to your morning bowl.</span>
             </h1>
 
-            {/* Subtitle */}
-            <p className="mt-6 text-base sm:text-lg text-gray-600 max-w-2xl leading-relaxed mx-auto lg:mx-0">
-              Cultivated with IoT soil telemetry and generational Japanese & Himalayan artisan mastery.
-              Single-origin whole leaf teas and stone-ground ceremonial matcha brimming with natural L-theanine and clean vitality.
+            <p className="mt-6 text-base sm:text-lg text-[#475E52] max-w-xl font-serif leading-relaxed">
+              We harvest unhurried, whole-leaf teas and wild restorative botanicals nurtured in living Himalayan and Shizuoka mountain soils. Grown without chemicals. Picked by hand in the dawn mist.
             </p>
 
-            {/* CTAs */}
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <Link
                 href="/products"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-tea-900 px-8 py-4 text-sm font-semibold text-white shadow-lg hover:bg-tea-800 hover:shadow-xl transition-all group"
+                className="inline-flex items-center justify-center gap-3 rounded-none bg-[#182B22] px-8 py-4 text-xs uppercase tracking-widest-estate font-semibold text-[#FAF7F2] hover:bg-[#315442] transition-colors"
               >
-                <span>Explore Organic Harvest</span>
-                <ArrowRight className="h-4 w-4 text-gold-400 group-hover:translate-x-1 transition-transform" />
+                <span>Explore The Harvests</span>
+                <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <Link
-                href={`/product/${featuredProduct.slug}`}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-tea-200 bg-white/80 px-7 py-4 text-sm font-semibold text-tea-900 hover:bg-white hover:border-tea-400 transition-all backdrop-blur-sm"
+                href="/about"
+                className="inline-flex items-center justify-center gap-2 border-b border-[#895237] py-3 text-xs uppercase tracking-widest-estate font-semibold text-[#895237] hover:text-[#182B22] hover:border-[#182B22] transition-colors"
               >
-                <span>View Featured Matcha</span>
+                <span>Read The Estate Story</span>
               </Link>
             </div>
 
-            {/* Key Trust Highlights */}
-            <div className="mt-12 pt-8 border-t border-gray-200/70 grid grid-cols-3 gap-4 text-left">
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-tea-100/80 text-tea-800 shrink-0">
-                  <ShieldCheck className="h-5 w-5" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-gray-900">100% Organic</h4>
-                  <p className="text-[11px] text-gray-500">USDA & EU Bio Certified</p>
-                </div>
+            {/* Three quiet editorial credentials */}
+            <div className="mt-14 pt-8 border-t border-[#DDD2C0] grid grid-cols-3 gap-6 text-[#243F32]">
+              <div>
+                <span className="font-serif text-2xl font-normal block text-[#182B22]">1,850m</span>
+                <span className="text-[11px] uppercase tracking-wider text-[#74A287] font-medium">Cloud Elevation</span>
               </div>
-
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gold-100 text-gold-800 shrink-0">
-                  <Leaf className="h-5 w-5" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-gray-900">Single Origin</h4>
-                  <p className="text-[11px] text-gray-500">Unblended High Terroir</p>
-                </div>
+              <div>
+                <span className="font-serif text-2xl font-normal block text-[#182B22]">100%</span>
+                <span className="text-[11px] uppercase tracking-wider text-[#74A287] font-medium">Living Organic Soil</span>
               </div>
-
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-tea-100/80 text-tea-800 shrink-0">
-                  <Sparkles className="h-5 w-5" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-gray-900">Zero Plastic</h4>
-                  <p className="text-[11px] text-gray-500">Biodegradable Packaging</p>
-                </div>
+              <div>
+                <span className="font-serif text-2xl font-normal block text-[#182B22]">Zero</span>
+                <span className="text-[11px] uppercase tracking-wider text-[#74A287] font-medium">Microplastics</span>
               </div>
             </div>
           </div>
 
-          {/* Right Showcase Artwork & Pedestal */}
+          {/* Right: Bespoke Botanical Showcase on Artisan Pedestal */}
           <div className="lg:col-span-5 relative flex justify-center items-center">
             <div className="relative w-full max-w-md aspect-square flex items-center justify-center">
-              {/* Circular Ambient Aura */}
-              <div className="absolute inset-0 rounded-full border border-gold-300/30 bg-gradient-to-tr from-tea-100/50 via-gold-100/30 to-transparent animate-pulse-subtle" />
+              {/* Soft circular wash */}
+              <div className="absolute inset-4 rounded-full border border-[#DDD2C0] bg-[#EAE2D5]/40" />
 
-              {/* Wooden / Natural Pedestal from Reference */}
-              <div className="absolute bottom-4 w-4/5 h-28 z-0">
+              {/* Natural Pedestal */}
+              <div className="absolute bottom-2 w-4/5 h-28 z-0">
                 <Image
                   src="/images/podstawka.png"
-                  alt="Artisan Pedestal"
+                  alt="Tea Pedestal"
                   fill
-                  className="object-contain opacity-95"
+                  className="object-contain"
                 />
               </div>
 
-              {/* Central Hero Product Floating Image */}
-              <div className="relative z-10 w-3/4 h-3/4 animate-float-slow drop-shadow-2xl">
+              {/* Fresh green tea leaf backdrop */}
+              <div className="absolute -top-4 -right-4 w-32 h-32 z-5 opacity-80 pointer-events-none">
                 <Image
-                  src={featuredProduct.mainImage}
-                  alt={featuredProduct.title}
+                  src="/images/green-tea.png"
+                  alt="Organic Tea Leaf"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+
+              {/* Central Matcha Art */}
+              <div className="relative z-10 w-3/4 h-3/4 drop-shadow-2xl">
+                <Image
+                  src={matcha.mainImage}
+                  alt={matcha.title}
                   fill
                   priority
-                  className="object-contain rounded-2xl"
+                  className="object-contain"
                 />
               </div>
 
-              {/* Floating Badge 1: Agro-Tech Microclimate */}
-              <div className="absolute -top-2 -left-2 sm:left-4 z-20 rounded-xl bg-white/90 p-3 shadow-xl backdrop-blur-md border border-tea-100 animate-fade-in">
-                <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-tea-50 text-tea-700">
-                    <Leaf className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <span className="block text-[10px] uppercase tracking-wider text-gray-400 font-semibold">
-                      Agro-Tech Terroir
-                    </span>
-                    <span className="text-xs font-bold text-tea-950">
-                      Uji Highlands, 450m
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating Badge 2: Tasting Notes & Quick Add */}
-              <div className="absolute -bottom-2 -right-2 sm:right-4 z-20 rounded-xl bg-white/95 p-3.5 shadow-xl backdrop-blur-md border border-gold-200/80 max-w-[210px]">
-                <div className="flex items-center justify-between gap-2 mb-1.5">
-                  <span className="text-[10px] uppercase tracking-wider font-bold text-gold-700">
-                    Flavor Profile
+              {/* Hand-stamped Label Tag */}
+              <div className="absolute bottom-4 left-2 z-20 bg-[#FAF7F2] border border-[#DDD2C0] p-4 shadow-sm max-w-[210px]">
+                <span className="font-serif italic text-xs text-[#895237] block">Featured Pluck</span>
+                <h4 className="font-serif text-sm font-bold text-[#182B22] leading-tight mt-0.5">
+                  Imperial Ceremonial Matcha
+                </h4>
+                <div className="mt-2 flex items-center justify-between">
+                  <span className="font-serif font-bold text-[#182B22] text-sm">
+                    ₹{matcha.price.toLocaleString('en-IN')}
                   </span>
-                  <span className="text-xs font-bold text-tea-900">${featuredProduct.price.toFixed(2)}</span>
+                  <button
+                    onClick={() => addToCart(matcha)}
+                    className="text-[10px] uppercase tracking-wider font-bold text-[#315442] hover:text-[#182B22] underline"
+                  >
+                    + Add to Bag
+                  </button>
                 </div>
-                <p className="text-[11px] text-gray-600 truncate mb-2">
-                  {featuredProduct.flavorNotes.slice(0, 2).join(' • ')}
-                </p>
-                <button
-                  onClick={() => addToCart(featuredProduct)}
-                  className="w-full rounded-lg bg-tea-900 py-1.5 text-[11px] font-semibold text-white hover:bg-tea-800 transition-colors"
-                >
-                  Quick Add to Bag
-                </button>
               </div>
             </div>
           </div>

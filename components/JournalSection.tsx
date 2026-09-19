@@ -4,31 +4,31 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { journalPostsData } from '@/lib/teaData';
-import { BookOpen, ArrowRight, Calendar, Sparkles } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export const JournalSection: React.FC = () => {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-[#FAF7F2]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6 pb-6 border-b border-[#DDD2C0]">
           <div>
-            <span className="text-xs uppercase tracking-[0.25em] font-bold text-gold-700 flex items-center gap-1.5">
-              <Sparkles className="h-3.5 w-3.5" /> The Agro-Tech Journal
+            <span className="font-serif italic text-sm text-[#74A287] block mb-1">
+              Field Notes & Botany
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-tea-950 mt-2">
-              Science, Terroir & Botanical Wisdom
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#182B22]">
+              The Estate Monographs
             </h2>
-            <p className="mt-3 text-sm text-gray-500 max-w-xl">
-              Delve into phytochemical research, regenerative soil microbiology, and the ancient art of mindful tea meditation.
+            <p className="mt-2 text-sm text-[#5C6E64] font-serif max-w-xl">
+              Reflections on high-mountain terroir, mycorrhizal soil health, and the ancient calming chemistry of shade-grown green leaves.
             </p>
           </div>
 
           <Link
             href="/journal"
-            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-tea-800 hover:text-gold-700 transition-colors group"
+            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest-estate font-bold text-[#182B22] hover:text-[#74A287] transition-colors group"
           >
-            <span>Read All Articles</span>
-            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            <span>All Monographs</span>
+            <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
@@ -36,58 +36,49 @@ export const JournalSection: React.FC = () => {
           {journalPostsData.map((post) => (
             <article
               key={post.id}
-              className="group flex flex-col rounded-2xl bg-white border border-gray-100 overflow-hidden shadow-sm hover:shadow-luxury hover:border-tea-200 transition-all duration-300"
+              className="group flex flex-col justify-between"
             >
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-tea-50">
-                <Image
-                  src={post.image}
-                  alt={post.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-3 left-3 rounded-full bg-white/95 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-tea-900 backdrop-blur-sm shadow-sm">
-                  {post.category}
+              <div>
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#F4EFE6] border border-[#DDD2C0] mb-4">
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute top-3 left-3 bg-[#FAF7F2] border border-[#DDD2C0] px-2 py-0.5 text-[9px] uppercase tracking-wider font-semibold text-[#182B22]">
+                    {post.chapter || 'Monograph'}
+                  </div>
                 </div>
-              </div>
 
-              <div className="p-6 flex-1 flex flex-col">
-                <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
-                  <span className="flex items-center gap-1">
-                    <Calendar className="h-3 w-3" />
-                    {post.publishDate}
-                  </span>
+                <div className="flex items-center gap-2 text-xs font-serif italic text-[#74A287] mb-1">
+                  <span>{post.publishDate}</span>
                   <span>•</span>
-                  <span className="flex items-center gap-1">
-                    <BookOpen className="h-3 w-3" />
-                    {post.readTime}
-                  </span>
+                  <span>{post.readTime}</span>
                 </div>
 
                 <Link href={`/journal/${post.slug}`}>
-                  <h3 className="font-serif text-lg font-bold text-gray-900 group-hover:text-tea-800 transition-colors line-clamp-2 leading-snug mb-3">
+                  <h3 className="font-serif text-xl font-bold text-[#182B22] group-hover:text-[#315442] transition-colors leading-snug">
                     {post.title}
                   </h3>
                 </Link>
 
-                <p className="text-xs sm:text-sm text-gray-500 line-clamp-3 leading-relaxed mb-6">
+                <p className="mt-2 text-xs sm:text-sm text-[#5C6E64] font-serif line-clamp-3 leading-relaxed">
                   {post.excerpt}
                 </p>
+              </div>
 
-                <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="relative h-7 w-7 rounded-full overflow-hidden bg-tea-100">
-                      <Image src={post.author.avatar} alt={post.author.name} fill className="object-cover" />
-                    </div>
-                    <span className="text-xs font-semibold text-gray-700">{post.author.name}</span>
-                  </div>
+              <div className="mt-6 pt-3 border-t border-[#DDD2C0] flex items-center justify-between">
+                <span className="text-xs font-serif italic text-[#182B22]">
+                  By {post.author.name}
+                </span>
 
-                  <Link
-                    href={`/journal/${post.slug}`}
-                    className="text-xs font-bold text-tea-900 hover:text-gold-700 transition-colors flex items-center gap-1"
-                  >
-                    Read <ArrowRight className="h-3 w-3" />
-                  </Link>
-                </div>
+                <Link
+                  href={`/journal/${post.slug}`}
+                  className="text-xs uppercase tracking-widest-estate font-bold text-[#315442] hover:text-[#182B22] underline"
+                >
+                  Read Monograph →
+                </Link>
               </div>
             </article>
           ))}

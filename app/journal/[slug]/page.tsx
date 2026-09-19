@@ -5,16 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { journalPostsData } from '@/lib/teaData';
-import {
-  Calendar,
-  BookOpen,
-  Quote,
-  MessageSquare,
-  Sparkles,
-  ArrowLeft,
-  Share2,
-  CheckCircle,
-} from 'lucide-react';
+import { ArrowLeft, CheckCircle } from 'lucide-react';
 
 interface JournalPageProps {
   params: Promise<{
@@ -42,13 +33,13 @@ export default function JournalArticlePage({ params }: JournalPageProps) {
       id: 'c1',
       name: 'Dr. Arthur Sterling',
       date: 'Sep 15, 2026',
-      text: 'Fascinating breakdown of the L-Theanine and EGCG synergy. The shade-grown data corresponds directly with our clinical findings on alpha wave brain synchrony.',
+      text: 'Fascinating reflection on L-Theanine and shade-grown tencha. The high-altitude data corresponds directly with our clinical findings on alpha wave brain synchrony.',
     },
     {
       id: 'c2',
-      name: 'Claire Beauchamp',
+      name: 'Ananya Raghavan',
       date: 'Sep 16, 2026',
-      text: 'I switched my morning routine from cold brew coffee to the TIRMA Ceremonial Matcha three weeks ago. The sustained focus without cardiovascular palpitations is remarkable.',
+      text: 'I switched my morning routine from dark coffee to the TIRMA Ceremonial Matcha three weeks ago. The sustained peaceful focus without midday jitters is remarkable.',
     },
   ]);
 
@@ -77,22 +68,22 @@ export default function JournalArticlePage({ params }: JournalPageProps) {
   };
 
   return (
-    <div className="bg-parchment-50 min-h-screen py-10 lg:py-16">
+    <div className="bg-[#FAF7F2] min-h-screen py-10 lg:py-16">
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Back Link & Breadcrumb */}
-        <div className="flex items-center justify-between mb-8">
+        {/* Back Link */}
+        <div className="flex items-center justify-between mb-8 pb-4 border-b border-[#EAE2D5]">
           <Link
             href="/journal"
-            className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-tea-800 hover:text-gold-700 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-serif italic text-[#74A287] hover:text-[#182B22] transition-colors"
           >
-            <ArrowLeft className="h-4 w-4" /> Back to The Journal
+            <ArrowLeft className="h-3.5 w-3.5" /> Back to Monographs
           </Link>
 
           <div className="flex items-center gap-2">
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-white px-3 py-1 text-[11px] font-semibold text-tea-900 border border-gray-200"
+                className="bg-[#F4EFE6] px-2.5 py-0.5 text-[10px] uppercase tracking-wider font-semibold text-[#182B22] border border-[#DDD2C0]"
               >
                 #{tag}
               </span>
@@ -101,61 +92,50 @@ export default function JournalArticlePage({ params }: JournalPageProps) {
         </div>
 
         {/* Title Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <span className="text-xs uppercase tracking-[0.25em] font-bold text-gold-700 bg-gold-50 border border-gold-200/60 px-3.5 py-1 rounded-full inline-block mb-4">
-            {post.category}
+        <div className="mb-12">
+          <span className="font-serif italic text-sm text-[#895237] block mb-2">
+            {post.chapter || 'Monograph'} • {post.category}
           </span>
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-tea-950 leading-tight">
+          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-normal text-[#182B22] leading-tight">
             {post.title}
           </h1>
-          <p className="mt-4 text-base text-gray-600 leading-relaxed font-serif italic">
+          <p className="mt-4 text-base sm:text-lg text-[#5C6E64] font-serif italic leading-relaxed">
             {post.excerpt}
           </p>
 
-          {/* Author info & date bar */}
-          <div className="mt-8 pt-6 border-t border-gray-200/70 flex items-center justify-center gap-6 text-xs text-gray-500">
-            <div className="flex items-center gap-2.5">
-              <div className="relative h-8 w-8 rounded-full overflow-hidden bg-tea-100 border border-gold-400/40">
-                <Image src={post.author.avatar} alt={post.author.name} fill className="object-cover" />
-              </div>
-              <span className="font-semibold text-gray-800">{post.author.name}</span>
-            </div>
+          <div className="mt-6 pt-4 border-t border-[#DDD2C0] flex items-center gap-4 text-xs font-serif text-[#74A287]">
+            <span className="font-bold text-[#182B22]">By {post.author.name}</span>
             <span>•</span>
-            <span className="flex items-center gap-1">
-              <Calendar className="h-3.5 w-3.5" /> {post.publishDate}
-            </span>
+            <span>{post.publishDate}</span>
             <span>•</span>
-            <span className="flex items-center gap-1">
-              <BookOpen className="h-3.5 w-3.5" /> {post.readTime}
-            </span>
+            <span>{post.readTime}</span>
           </div>
         </div>
 
         {/* Hero Image */}
-        <div className="relative aspect-[16/9] w-full rounded-3xl overflow-hidden shadow-luxury border border-gray-100 mb-14">
+        <div className="relative aspect-[16/9] w-full border border-[#DDD2C0] mb-14">
           <Image src={post.image} alt={post.title} fill priority className="object-cover" />
         </div>
 
         {/* Article Body Content */}
-        <div className="rounded-3xl bg-white p-8 sm:p-14 shadow-sm border border-gray-100 mb-16 space-y-8">
+        <div className="border border-[#DDD2C0] bg-white p-8 sm:p-14 mb-16 space-y-8 font-serif">
           {/* Introduction */}
-          <p className="text-base sm:text-lg text-gray-700 leading-relaxed font-serif first-letter:text-5xl first-letter:font-bold first-letter:float-left first-letter:mr-3 first-letter:text-tea-900">
+          <p className="text-base sm:text-lg text-[#243F32] leading-relaxed first-letter:text-5xl first-letter:font-light first-letter:float-left first-letter:mr-3 first-letter:text-[#182B22]">
             {post.content.introduction}
           </p>
 
           {/* Sections */}
           {post.content.sections.map((sec, idx) => (
             <div key={idx} className="space-y-4 pt-4">
-              <h2 className="font-serif text-2xl font-bold text-tea-950">
+              <h2 className="font-serif text-2xl font-bold text-[#182B22]">
                 {sec.heading}
               </h2>
-              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+              <p className="text-sm sm:text-base text-[#475E52] leading-relaxed">
                 {sec.body}
               </p>
 
               {sec.quote && (
-                <div className="my-6 rounded-2xl bg-parchment-100/70 border-l-4 border-gold-500 p-6 italic font-serif text-base text-tea-950 relative">
-                  <Quote className="h-6 w-6 text-gold-400 absolute top-4 right-4 stroke-[1.5]" />
+                <div className="my-8 border-l-2 border-[#895237] pl-6 py-2 italic font-serif text-lg text-[#182B22]">
                   {sec.quote}
                 </div>
               )}
@@ -163,35 +143,31 @@ export default function JournalArticlePage({ params }: JournalPageProps) {
           ))}
 
           {/* Conclusion */}
-          <div className="pt-6 border-t border-gray-100">
-            <h3 className="font-serif text-xl font-bold text-tea-950 mb-3">
+          <div className="pt-6 border-t border-[#EAE2D5]">
+            <h3 className="font-serif text-xl font-bold text-[#182B22] mb-3">
               Closing Perspective
             </h3>
-            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+            <p className="text-sm sm:text-base text-[#475E52] leading-relaxed">
               {post.content.conclusion}
             </p>
           </div>
         </div>
 
-        {/* Interactive Comments & Dialogue */}
-        <div className="rounded-3xl bg-white p-8 sm:p-12 shadow-sm border border-gray-100 mb-16">
-          <div className="flex items-center gap-2 mb-8">
-            <MessageSquare className="h-5 w-5 text-tea-700" />
-            <h3 className="font-serif text-2xl font-bold text-tea-950">
-              Connoisseur Discussion ({comments.length})
-            </h3>
-          </div>
+        {/* Reader Reflections Form */}
+        <div className="border border-[#DDD2C0] bg-white p-8 sm:p-12 mb-16">
+          <h3 className="font-serif text-2xl font-bold text-[#182B22] mb-2">
+            Reader Reflections ({comments.length})
+          </h3>
+          <p className="text-xs font-serif text-[#5C6E64] mb-8">
+            Share your perspective on this botanical monograph.
+          </p>
 
           {/* Comment Form */}
-          <form onSubmit={handleAddComment} className="mb-10 rounded-2xl bg-parchment-50 p-6 border border-gray-200">
-            <h4 className="text-xs uppercase tracking-wider font-bold text-gray-700 mb-3">
-              Leave a Reflection or Query
-            </h4>
-
+          <form onSubmit={handleAddComment} className="mb-10 bg-[#FAF7F2] p-6 border border-[#DDD2C0]">
             {commentSubmitted && (
-              <div className="mb-4 flex items-center gap-2 rounded-xl bg-green-50 p-3 text-xs font-semibold text-green-800 border border-green-200">
-                <CheckCircle className="h-4 w-4 text-green-600" />
-                Your comment has been published to the journal discussion!
+              <div className="mb-4 flex items-center gap-2 bg-[#E4EFE8] p-3 text-xs font-serif text-[#182B22] border border-[#74A287]">
+                <CheckCircle className="h-4 w-4 text-[#315442]" />
+                Your reflection has been recorded.
               </div>
             )}
 
@@ -202,29 +178,29 @@ export default function JournalArticlePage({ params }: JournalPageProps) {
                 placeholder="Your Full Name"
                 value={commentName}
                 onChange={(e) => setCommentName(e.target.value)}
-                className="rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-xs text-gray-800 focus:border-tea-500 focus:outline-none"
+                className="border border-[#DDD2C0] bg-white px-3.5 py-2 text-xs font-serif text-[#182B22] focus:border-[#182B22] focus:outline-none"
               />
               <input
                 type="email"
                 placeholder="Your Email (Optional)"
                 value={commentEmail}
                 onChange={(e) => setCommentEmail(e.target.value)}
-                className="rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-xs text-gray-800 focus:border-tea-500 focus:outline-none"
+                className="border border-[#DDD2C0] bg-white px-3.5 py-2 text-xs font-serif text-[#182B22] focus:border-[#182B22] focus:outline-none"
               />
             </div>
 
             <textarea
               required
               rows={3}
-              placeholder="Share your perspective on this research..."
+              placeholder="Your reflection on the text..."
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
-              className="w-full rounded-xl border border-gray-200 bg-white p-3.5 text-xs text-gray-800 focus:border-tea-500 focus:outline-none mb-4"
+              className="w-full border border-[#DDD2C0] bg-white p-3 text-xs font-serif text-[#182B22] focus:border-[#182B22] focus:outline-none mb-4"
             />
 
             <button
               type="submit"
-              className="rounded-xl bg-tea-900 px-6 py-2.5 text-xs font-semibold text-white hover:bg-tea-800 transition-colors shadow-sm"
+              className="bg-[#182B22] px-6 py-2.5 text-xs uppercase tracking-widest-estate font-bold text-[#FAF7F2] hover:bg-[#315442] transition-colors"
             >
               Post Reflection
             </button>
@@ -235,13 +211,13 @@ export default function JournalArticlePage({ params }: JournalPageProps) {
             {comments.map((item) => (
               <div
                 key={item.id}
-                className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm space-y-1.5"
+                className="border-b border-[#EAE2D5] pb-4 font-serif space-y-1"
               >
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-gray-900">{item.name}</span>
-                  <span className="text-gray-400">{item.date}</span>
+                  <span className="font-bold text-[#182B22]">{item.name}</span>
+                  <span className="text-[#7A8E82] italic">{item.date}</span>
                 </div>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{item.text}</p>
+                <p className="text-sm text-[#475E52] leading-relaxed">{item.text}</p>
               </div>
             ))}
           </div>

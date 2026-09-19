@@ -12,9 +12,7 @@ import {
   User as UserIcon,
   Menu,
   X,
-  Sparkles,
   ArrowRight,
-  Package,
 } from 'lucide-react';
 import { SearchModal } from './SearchModal';
 import { UserAuthModal } from './UserAuthModal';
@@ -22,7 +20,7 @@ import { ShoppingCartDrawer } from './ShoppingCartDrawer';
 
 export const Navbar: React.FC = () => {
   const pathname = usePathname();
-  const { totalItems, setIsCartOpen } = useCart();
+  const { totalItems, subtotal, setIsCartOpen } = useCart();
   const { isLoggedIn, setIsUserModalOpen, user } = useUser();
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -31,40 +29,32 @@ export const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 25);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Collection', href: '/products' },
-    { name: 'Brewing Rituals', href: '/recipes' },
-    { name: 'The Journal', href: '/journal' },
-    { name: 'Our Philosophy', href: '/about' },
-    { name: 'Orders', href: '/orders' },
+    { name: 'The Garden', href: '/' },
+    { name: 'Harvests', href: '/products' },
+    { name: 'The Ritual', href: '/recipes' },
+    { name: 'Monographs', href: '/journal' },
+    { name: 'The Estate', href: '/about' },
+    { name: 'Shipments', href: '/orders' },
   ];
 
   return (
     <>
-      {/* Top Eco Announcement Bar */}
-      <div className="bg-tea-950 text-tea-100 text-[11px] font-medium tracking-wide py-2 px-4 text-center border-b border-tea-900/60 relative z-40">
+      {/* Top Quiet Estate Ribbon */}
+      <div className="bg-[#182B22] text-[#DCD4C7] text-[11px] font-medium tracking-widest-estate uppercase py-2 px-4 text-center border-b border-[#243F32]">
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-3">
-          <span className="inline-flex items-center gap-1.5 text-gold-300">
-            <Sparkles className="h-3 w-3 text-gold-400" /> 100% Certified Organic Harvest 2026
-          </span>
-          <span className="hidden md:inline text-tea-600">•</span>
-          <span className="hidden sm:inline">
-            Free Worldwide Eco-Shipping on orders over $50
-          </span>
-          <span className="hidden lg:inline text-tea-600">•</span>
-          <span className="hidden lg:inline text-gold-400">
-            Use code <span className="underline font-semibold">ORGANIC10</span> for 10% off
+          <span className="text-[#B98E3F]">Spring Harvest 2026</span>
+          <span className="text-[#3D6A52]">•</span>
+          <span>Complimentary Estate Delivery Across India on Orders Above ₹1,499</span>
+          <span className="hidden md:inline text-[#3D6A52]">•</span>
+          <span className="hidden md:inline text-[#DEC284]">
+            Voucher: <span className="font-semibold underline">ORGANIC10</span> (10% Off)
           </span>
         </div>
       </div>
@@ -73,14 +63,14 @@ export const Navbar: React.FC = () => {
       <header
         className={`sticky top-0 z-40 w-full transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-tea-100/80 py-3'
-            : 'bg-white border-b border-gray-100 py-4'
+            ? 'bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#EAE2D5] shadow-sm py-3'
+            : 'bg-[#FAF7F2] border-b border-[#EAE2D5] py-4'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand Logo & Name */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative h-12 w-12 rounded-full overflow-hidden border border-gold-400/40 shadow-sm group-hover:border-gold-500 transition-colors bg-white">
+          {/* Brand Logo & Editorial Title */}
+          <Link href="/" className="flex items-center gap-3.5 group">
+            <div className="relative h-12 w-12 rounded-full overflow-hidden border border-[#DEC284] shadow-sm bg-white shrink-0 group-hover:scale-105 transition-transform duration-300">
               <Image
                 src="/images/logo.jpeg"
                 alt="TIRMA AGRO TECH"
@@ -90,32 +80,32 @@ export const Navbar: React.FC = () => {
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-serif text-xl sm:text-2xl font-bold tracking-wider text-tea-950 group-hover:text-gold-700 transition-colors">
+              <span className="font-serif text-2xl sm:text-3xl font-bold tracking-wider text-[#182B22] group-hover:text-[#315442] transition-colors">
                 TIRMA
               </span>
-              <span className="text-[9px] uppercase tracking-[0.25em] text-tea-600 font-semibold -mt-1">
-                Agro Tech • Organic
+              <span className="text-[9px] uppercase tracking-[0.3em] text-[#74A287] font-medium -mt-1">
+                Organic & Herbal Teas
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-7">
+          <nav className="hidden lg:flex items-center space-x-8">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-xs uppercase tracking-widest font-semibold transition-colors relative py-1 ${
+                  className={`text-xs uppercase tracking-widest font-medium transition-colors relative py-1.5 ${
                     isActive
-                      ? 'text-tea-900 font-bold'
-                      : 'text-gray-600 hover:text-tea-900'
+                      ? 'text-[#182B22] font-bold'
+                      : 'text-[#5C6E64] hover:text-[#182B22]'
                   }`}
                 >
                   {link.name}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gold-500 rounded-full" />
+                    <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#315442]" />
                   )}
                 </Link>
               );
@@ -123,57 +113,57 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* Action Icons */}
-          <div className="flex items-center gap-2 sm:gap-4">
-            {/* Search Icon */}
+          <div className="flex items-center gap-3 sm:gap-4">
+            {/* Search */}
             <button
               onClick={() => setSearchModalOpen(true)}
               aria-label="Search teas"
-              className="p-2.5 rounded-full text-gray-600 hover:text-tea-900 hover:bg-parchment-100 transition-colors"
+              className="p-2 text-[#475E52] hover:text-[#182B22] hover:bg-[#EAE2D5]/50 rounded-full transition-colors"
             >
-              <Search className="h-5 w-5" />
+              <Search className="h-4 w-4" />
             </button>
 
-            {/* User Profile / Login */}
+            {/* Account */}
             <button
               onClick={() => setIsUserModalOpen(true)}
               aria-label="Account"
-              className="p-2.5 rounded-full text-gray-600 hover:text-tea-900 hover:bg-parchment-100 transition-colors relative"
+              className="p-2 text-[#475E52] hover:text-[#182B22] hover:bg-[#EAE2D5]/50 rounded-full transition-colors relative"
             >
-              <UserIcon className="h-5 w-5" />
+              <UserIcon className="h-4 w-4" />
               {isLoggedIn && (
-                <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-tea-600" />
+                <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[#3D6A52]" />
               )}
             </button>
 
-            {/* Shopping Cart Bag */}
+            {/* Shopping Bag with INR Subtotal */}
             <button
               onClick={() => setIsCartOpen(true)}
               aria-label="Shopping bag"
-              className="group relative flex items-center gap-2 rounded-full bg-tea-900 px-4 py-2 text-white hover:bg-tea-800 transition-all shadow-sm"
+              className="flex items-center gap-2.5 rounded-full bg-[#182B22] px-4 py-2 text-white hover:bg-[#243F32] transition-all shadow-sm"
             >
-              <ShoppingBag className="h-4 w-4 text-gold-300" />
-              <span className="hidden sm:inline text-xs font-semibold tracking-wide">
-                Bag
+              <ShoppingBag className="h-4 w-4 text-[#DEC284]" />
+              <span className="hidden sm:inline text-xs font-serif tracking-wider font-semibold">
+                ₹{subtotal > 0 ? subtotal.toLocaleString('en-IN') : '0'}
               </span>
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gold-500 text-[10px] font-bold text-tea-950">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#3D6A52] text-[10px] font-bold text-white">
                 {totalItems}
               </span>
             </button>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
-              aria-label="Toggle mobile menu"
+              className="lg:hidden p-2 text-[#182B22] hover:bg-[#EAE2D5] rounded-lg transition-colors"
+              aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden fixed inset-x-0 top-[110px] bottom-0 bg-white z-50 flex flex-col p-6 animate-fade-in border-t border-gray-100 overflow-y-auto">
+          <div className="lg:hidden fixed inset-x-0 top-[108px] bottom-0 bg-[#FAF7F2] z-50 flex flex-col p-8 border-t border-[#EAE2D5] overflow-y-auto">
             <div className="space-y-4">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
@@ -182,8 +172,8 @@ export const Navbar: React.FC = () => {
                     key={link.name}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`block py-3 text-lg font-serif font-semibold border-b border-gray-100 ${
-                      isActive ? 'text-tea-900 font-bold' : 'text-gray-700'
+                    className={`block py-3 font-serif text-xl border-b border-[#EAE2D5] ${
+                      isActive ? 'text-[#182B22] font-bold italic' : 'text-[#5C6E64]'
                     }`}
                   >
                     {link.name}
@@ -192,22 +182,24 @@ export const Navbar: React.FC = () => {
               })}
             </div>
 
-            <div className="mt-8 pt-6 border-t border-gray-200">
+            <div className="mt-8 pt-6 border-t border-[#DDD2C0]">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   setIsUserModalOpen(true);
                 }}
-                className="flex w-full items-center justify-between rounded-xl bg-parchment-100 p-4 text-sm font-semibold text-tea-900"
+                className="flex w-full items-center justify-between rounded-xl bg-[#EAE2D5] p-4 text-xs uppercase tracking-widest font-bold text-[#182B22]"
               >
-                <span>{isLoggedIn ? `Account (${user?.name})` : 'Sign In / Register'}</span>
+                <span>{isLoggedIn ? `Patron Account (${user?.name})` : 'Join The Tea Society'}</span>
                 <ArrowRight className="h-4 w-4" />
               </button>
             </div>
 
-            <div className="mt-auto pt-8 text-center text-xs text-gray-400">
+            <div className="mt-auto pt-8 text-center text-xs text-[#7A8E82] font-serif italic">
               <p>TIRMA AGRO TECH • Technology Rooted in Nature</p>
-              <p className="mt-1">100% Certified Organic Specialty Teas</p>
+              <p className="mt-1 font-sans text-[10px] uppercase tracking-widest not-italic">
+                Pure Single-Estate Organic & Herbal Teas
+              </p>
             </div>
           </div>
         )}
