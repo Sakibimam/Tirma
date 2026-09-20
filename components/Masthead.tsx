@@ -42,7 +42,7 @@ export const Masthead: React.FC = () => {
 
   return (
     <>
-      <div className="bg-garden-600 py-2.5 text-center text-[0.8125rem] text-cream/85">
+      <div className="flex h-[var(--announce)] items-center justify-center bg-garden-600 px-4 text-center text-[0.8125rem] text-cream/85">
         Harvest month on every pack · Free delivery over ₹1,499
       </div>
 
@@ -53,7 +53,7 @@ export const Masthead: React.FC = () => {
             : 'border-b border-[color:var(--line)] bg-cream/95 text-bark backdrop-blur-md'
         }`}
       >
-        <div className="mx-auto flex h-16 max-w-shell items-center justify-between gap-8 px-6 sm:px-10 lg:px-16">
+        <div className="mx-auto flex h-[var(--nav)] max-w-shell items-center justify-between gap-8 px-6 sm:px-10 lg:px-16">
           <Link href="/" className="flex items-baseline gap-2.5">
             <span className="font-display text-[1.625rem] font-medium leading-none tracking-[0.01em]">
               TIRMA

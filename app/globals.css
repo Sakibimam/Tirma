@@ -20,7 +20,13 @@
   --bark-50: #7a6d5d;
   --line: rgba(51, 41, 31, 0.12);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --masthead: 6.5rem;
+  /* The two bars, pinned to exact heights so the hero can offset against
+     them. `sticky` occupies layout space rather than overlaying, so a hero
+     that wants the nav floating on top of its photograph has to pull itself
+     up by --nav. */
+  --announce: 2.5rem;
+  --nav: 4rem;
+  --masthead: calc(var(--announce) + var(--nav));
 }
 
 * {
@@ -181,6 +187,16 @@ body {
       rgba(26, 42, 31, 0.62) 38%,
       rgba(26, 42, 31, 0.22) 68%,
       rgba(26, 42, 31, 0.08) 100%
+    );
+  }
+  /* Runs down from the top edge so the transparent masthead stays readable
+     over whatever the photograph happens to put up there. */
+  .scrim-top {
+    background: linear-gradient(
+      to bottom,
+      rgba(26, 42, 31, 0.6) 0%,
+      rgba(26, 42, 31, 0.3) 45%,
+      transparent 100%
     );
   }
   .scrim-side {

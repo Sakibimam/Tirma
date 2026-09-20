@@ -10,7 +10,10 @@ import Image from 'next/image';
  * on whatever the crop happens to expose.
  */
 export const Hero: React.FC = () => (
-  <section className="relative isolate min-h-[560px] overflow-hidden lg:min-h-[calc(100svh-var(--masthead))]">
+  // -mt pulls the photograph up behind the sticky nav, which otherwise sits
+  // above it as a solid strip. The section still reaches the bottom of the
+  // viewport because its height only subtracts the announcement bar.
+  <section className="relative isolate mt-[calc(var(--nav)*-1)] min-h-[560px] overflow-hidden lg:min-h-[calc(100svh-var(--announce))]">
     <Image
       src="/photos/garden-valley.jpg"
       alt="Tea bushes on a hillside in the Western Ghats, with cloud sitting in the valley beyond"
@@ -21,8 +24,10 @@ export const Hero: React.FC = () => (
     />
     <div className="scrim absolute inset-0 -z-10 lg:hidden" aria-hidden="true" />
     <div className="scrim-side absolute inset-0 -z-10 hidden lg:block" aria-hidden="true" />
+    {/* Keeps the transparent nav legible where the photo is bright sky. */}
+    <div className="scrim-top absolute inset-x-0 top-0 -z-10 h-40" aria-hidden="true" />
 
-    <div className="mx-auto flex min-h-[560px] max-w-shell items-end px-6 pb-14 pt-24 sm:px-10 lg:min-h-[calc(100svh-var(--masthead))] lg:items-center lg:px-16 lg:pb-16">
+    <div className="mx-auto flex min-h-[560px] max-w-shell items-end px-6 pb-14 pt-[calc(var(--nav)+3rem)] sm:px-10 lg:min-h-[calc(100svh-var(--announce))] lg:items-center lg:px-16 lg:pb-16">
       <div className="max-w-xl text-cream">
         <p className="eyebrow rise text-cream/75">Assam &amp; the Kashmir valley</p>
 
