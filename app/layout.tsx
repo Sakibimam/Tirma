@@ -1,46 +1,75 @@
 import type { Metadata } from 'next';
-import { Inter, Cormorant_Garamond } from 'next/font/google';
+import { Fraunces, Karla } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
 import { UserProvider } from '@/context/UserContext';
-import { Navbar, Footer, NotificationToast } from '@/components';
+import { Masthead, Footer, NotificationToast } from '@/components';
 
-const inter = Inter({
+// Fraunces has optical sizing and a "soft" axis — it reads warm and slightly
+// handmade, which is the whole point. Karla is a humanist sans with a bit of
+// character rather than another neutral grotesque.
+// Variable font: `axes` requires the weight axis to stay variable, so no
+// explicit weight list here. SOFT rounds the terminals and WONK swaps in the
+// cursive-ish alternates — together they are what stop it reading as a stiff
+// editorial serif.
+const display = Fraunces({
   subsets: ['latin'],
+  style: ['normal', 'italic'],
+  axes: ['SOFT', 'WONK', 'opsz'],
+  variable: '--font-display',
+  display: 'swap',
+});
+
+const sans = Karla({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
   variable: '--font-sans',
   display: 'swap',
 });
 
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-serif',
-  display: 'swap',
-});
-
 export const metadata: Metadata = {
-  title: 'TIRMA — Pure Single-Estate Organic & Herbal Teas',
-  description:
-    'Artisanal whole-leaf teas, stone-ground ceremonial matcha, and botanical tisanes harvested from mist-shrouded high-elevation mountain gardens. Rooted in living soil and mindful brewing rituals.',
-  icons: {
-    icon: '/logo.jpeg',
-    apple: '/logo.jpeg',
+  metadataBase: new URL('https://tirma.tea'),
+  title: {
+    default: 'TIRMA — Hill-grown tea from Assam & Kashmir',
+    template: '%s — TIRMA',
   },
+  description:
+    'Whole-leaf tea from the gardens of Assam and the Kashmir valley, with the harvest month printed on every pack. Assam black for chai, first-flush green, Kashmiri kahwa and caffeine-free blue pea.',
+  keywords: [
+    'Assam tea online',
+    'Kashmiri kahwa',
+    'blue pea flower tea',
+    'butterfly pea tea India',
+    'whole leaf tea',
+    'masala chai whole spice',
+    'buy loose leaf tea India',
+  ],
+  openGraph: {
+    title: 'TIRMA — Hill-grown tea from Assam & Kashmir',
+    description:
+      'Whole-leaf tea with the harvest month on every pack. Shipped across India.',
+    type: 'website',
+    locale: 'en_IN',
+  },
+  icons: { icon: '/logo.jpeg', apple: '/logo.jpeg' },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${cormorant.variable} scroll-smooth`}>
-      <body className="min-h-screen flex flex-col font-sans bg-[#FAF7F2] text-[#16261E] antialiased selection:bg-[#3D6A52] selection:text-[#FAF7F2]">
+    <html lang="en-IN" className={`${display.variable} ${sans.variable}`}>
+      <body className="flex min-h-screen flex-col bg-cream font-sans text-bark antialiased">
         <UserProvider>
           <CartProvider>
-            <Navbar />
-            <main className="flex-1">{children}</main>
+            <a
+              href="#main"
+              className="sr-only focus:not-sr-only focus:absolute focus:z-[300] focus:m-4 focus:rounded-full focus:bg-garden-500 focus:px-5 focus:py-2.5 focus:text-cream"
+            >
+              Skip to content
+            </a>
+            <Masthead />
+            <main id="main" className="flex-1">
+              {children}
+            </main>
             <Footer />
             <NotificationToast />
           </CartProvider>

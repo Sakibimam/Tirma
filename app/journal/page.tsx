@@ -1,132 +1,75 @@
-'use client';
-
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { journalPostsData } from '@/lib/teaData';
-import { ArrowRight } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Journal',
+  description:
+    'Notes from the valley: why Assam is a lowland tea, how saffron gets faked, and the chemistry behind blue tea turning violet.',
+};
 
 export default function JournalPage() {
   return (
-    <div className="bg-[#FAF7F2] min-h-screen py-12 lg:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="max-w-3xl mb-16">
-          <span className="font-serif italic text-sm text-[#74A287] block mb-2">
-            Field Notes & Botanical Botany
-          </span>
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-[#182B22]">
-            The Estate Monographs
+    <div className="bg-cream">
+      <header className="border-b border-[color:var(--line)]">
+        <div className="mx-auto max-w-shell px-6 pb-16 pt-20 sm:px-10 lg:px-16">
+          <p className="eyebrow text-bark-50">Journal</p>
+          <h1 className="mt-6 font-display text-d-md">
+            Notes from <span className="italic">the valley.</span>
           </h1>
-          <p className="mt-4 text-sm sm:text-base text-[#475E52] font-serif leading-relaxed">
-            Essays on high-altitude cloud cover, living forest soils, the tranquil neuroscience of L-theanine, and the gentle art of mindful steeping.
+          <p className="prose-measure mt-8 text-bark-70">
+            Written when there is something worth saying, which is not often. No
+            wellness copy, no listicles — mostly the things we had to learn while
+            buying this tea, and a few we got wrong first.
           </p>
         </div>
+      </header>
 
-        {/* Featured First Monograph */}
-        {journalPostsData[0] && (
-          <div className="border border-[#DDD2C0] bg-[#F4EFE6] mb-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-10">
-            <div className="lg:col-span-7 relative aspect-[16/10] w-full overflow-hidden bg-[#FAF7F2] border border-[#DDD2C0]">
-              <Image
-                src={journalPostsData[0].image}
-                alt={journalPostsData[0].title}
-                fill
-                priority
-                className="object-cover hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute top-4 left-4 bg-[#182B22] text-[#FAF7F2] px-3 py-1 text-[9px] uppercase tracking-widest font-bold">
-                {journalPostsData[0].chapter || 'Featured Thesis'}
-              </div>
-            </div>
-
-            <div className="lg:col-span-5 flex flex-col justify-between py-2">
-              <div>
-                <div className="flex items-center gap-2 text-xs font-serif italic text-[#74A287] mb-2">
-                  <span>{journalPostsData[0].publishDate}</span>
-                  <span>•</span>
-                  <span>{journalPostsData[0].readTime}</span>
-                </div>
-
-                <Link href={`/journal/${journalPostsData[0].slug}`}>
-                  <h2 className="font-serif text-2xl sm:text-3xl font-normal text-[#182B22] hover:text-[#315442] transition-colors leading-snug mb-4">
-                    {journalPostsData[0].title}
-                  </h2>
-                </Link>
-
-                <p className="font-serif text-sm text-[#475E52] leading-relaxed mb-6">
-                  {journalPostsData[0].excerpt}
-                </p>
-              </div>
-
-              <div className="pt-6 border-t border-[#DDD2C0] flex items-center justify-between">
-                <span className="font-serif italic text-xs text-[#182B22]">
-                  By {journalPostsData[0].author.name}
-                </span>
-
-                <Link
-                  href={`/journal/${journalPostsData[0].slug}`}
-                  className="text-xs uppercase tracking-widest-estate font-bold text-[#315442] hover:text-[#182B22] underline"
-                >
-                  Read Monograph →
-                </Link>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Remaining Monographs */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {journalPostsData.slice(1).map((post) => (
-            <article
-              key={post.id}
-              className="group flex flex-col justify-between"
+      <ul className="mx-auto max-w-shell px-6 pb-24 sm:px-10 lg:px-16">
+        {journalPostsData.map((post, i) => (
+          <li key={post.id} className="border-b border-[color:var(--line)]">
+            <Link
+              href={`/journal/${post.slug}`}
+              className="group grid items-start gap-x-16 gap-y-6 py-14 lg:grid-cols-12"
             >
-              <div>
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#F4EFE6] border border-[#DDD2C0] mb-4">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute top-3 left-3 bg-[#FAF7F2] border border-[#DDD2C0] px-2 py-0.5 text-[9px] uppercase tracking-wider font-semibold text-[#182B22]">
-                    {post.chapter || 'Monograph'}
-                  </div>
-                </div>
+              <span className="eyebrow text-bark-50 lg:col-span-1">
+                {String(i + 1).padStart(2, '0')}
+              </span>
 
-                <div className="flex items-center gap-2 text-xs font-serif italic text-[#74A287] mb-1">
-                  <span>{post.publishDate}</span>
-                  <span>•</span>
-                  <span>{post.readTime}</span>
-                </div>
-
-                <Link href={`/journal/${post.slug}`}>
-                  <h3 className="font-serif text-xl font-bold text-[#182B22] group-hover:text-[#315442] transition-colors leading-snug">
-                    {post.title}
-                  </h3>
-                </Link>
-
-                <p className="mt-2 text-xs sm:text-sm text-[#5C6E64] font-serif line-clamp-3 leading-relaxed">
+              <div className="lg:col-span-6">
+                <span className="eyebrow text-bark-50">
+                  {post.category} · {post.readTime}
+                </span>
+                <h2 className="mt-4 font-display text-[2rem] leading-[1.1]">
+                  <span className="link">{post.title}</span>
+                </h2>
+                <p className="prose-measure mt-5 text-[0.975rem] leading-[1.7] text-bark-70">
                   {post.excerpt}
                 </p>
-              </div>
-
-              <div className="mt-6 pt-3 border-t border-[#DDD2C0] flex items-center justify-between">
-                <span className="text-xs font-serif italic text-[#182B22]">
-                  By {post.author.name}
+                <span className="eyebrow mt-6 inline-block text-bark-50">
+                  {new Date(post.publishDate).toLocaleDateString('en-IN', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                  })}
                 </span>
-
-                <Link
-                  href={`/journal/${post.slug}`}
-                  className="text-xs uppercase tracking-widest-estate font-bold text-[#315442] hover:text-[#182B22] underline"
-                >
-                  Read Monograph →
-                </Link>
               </div>
-            </article>
-          ))}
-        </div>
-      </div>
+
+              <div className="relative aspect-[4/3] overflow-hidden rounded-card lg:col-span-5">
+                <Image
+                  src={post.image}
+                  alt=""
+                  fill
+                  sizes="(max-width: 1024px) 92vw, 40vw"
+                  className="object-cover transition-transform duration-[1200ms] ease-soft group-hover:scale-[1.04]"
+                />
+              </div>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

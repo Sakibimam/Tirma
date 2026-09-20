@@ -1,24 +1,26 @@
 import React from 'react';
 import {
-  HeroBanner,
-  PopularProducts,
-  Benefits,
-  MainProduct,
-  RecipesSection,
-  JournalSection,
-  BrandReviews,
+  Hero,
+  ShopRange,
+  Gardens,
+  Standards,
+  StarterBox,
+  Reviews,
+  JournalTeaser,
 } from '@/components';
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <HeroBanner />
-      <PopularProducts />
-      <Benefits />
-      <MainProduct />
-      <RecipesSection />
-      <JournalSection />
-      <BrandReviews />
-    </div>
+    <>
+      <Hero />
+      {/* Shop sits directly under the hero: someone who wants tea should not
+          have to scroll past a manifesto to buy any. */}
+      <ShopRange />
+      <Gardens />
+      <Standards />
+      <StarterBox />
+      <Reviews />
+      <JournalTeaser />
+    </>
   );
 }

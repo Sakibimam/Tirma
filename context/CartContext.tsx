@@ -3,6 +3,14 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { CartItem, Product } from '@/types';
 
+/**
+ * Each pack size carries its own price, so a 500 g refill is not billed at the
+ * 100 g rate. Falls back to the product's base price if a size goes missing
+ * (e.g. an old cart restored from localStorage after a catalogue change).
+ */
+export const unitPrice = (product: Product, sizeLabel: string): number =>
+  product.packageSizes.find((s) => s.label === sizeLabel)?.price ?? product.price;
+
 interface CartContextType {
   cartItems: CartItem[];
   addToCart: (product: Product, size?: string, quantity?: number) => void;
@@ -72,7 +80,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const clearNotification = () => setNotificationMessage(null);
 
   const addToCart = (product: Product, size?: string, quantity: number = 1) => {
-    const selectedSize = size || product.packageSizes[0] || 'Standard';
+    const selectedSize = size || product.packageSizes[0]?.label || 'Standard';
 
     setCartItems((prevItems) => {
       const existingIndex = prevItems.findIndex(
@@ -91,7 +99,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     });
 
-    showNotification(`Added ${product.title} (${selectedSize}) to your bag`);
+    showNotification(`${product.title} — ${selectedSize} added`);
   };
 
   const removeFromCart = (productId: string, size: string) => {
@@ -126,18 +134,18 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const applyDiscountCode = (code: string) => {
     const cleanCode = code.trim().toUpperCase();
-    if (cleanCode === 'ORGANIC10' || cleanCode === 'TIRMA10') {
+    if (cleanCode === 'FIRSTFLUSH' || cleanCode === 'TIRMA10') {
       setDiscountCode(cleanCode);
       setDiscountPercentage(10);
       localStorage.setItem('tirma_discount', JSON.stringify({ code: cleanCode, percentage: 10 }));
-      return { success: true, message: 'Harvest voucher applied! 10% off your entire order.' };
+      return { success: true, message: '10% off applied to your order.' };
     } else if (cleanCode === 'HARVEST20') {
       setDiscountCode(cleanCode);
       setDiscountPercentage(20);
       localStorage.setItem('tirma_discount', JSON.stringify({ code: cleanCode, percentage: 20 }));
-      return { success: true, message: 'Special Estate voucher applied! 20% discount activated.' };
+      return { success: true, message: '20% off applied to your order.' };
     } else {
-      return { success: false, message: 'Invalid voucher code. Try "ORGANIC10".' };
+      return { success: false, message: 'That code is not recognised.' };
     }
   };
 
@@ -150,7 +158,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   const subtotal = cartItems.reduce((acc, item) => {
-    return acc + item.product.price * item.quantity;
+    return acc + unitPrice(item.product, item.selectedSize) * item.quantity;
   }, 0);
 
   const discountAmount = Math.round((subtotal * discountPercentage) / 100);

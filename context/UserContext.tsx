@@ -7,7 +7,7 @@ import { productsData } from '@/lib/teaData';
 interface UserProfile {
   name: string;
   email: string;
-  membershipTier: 'Tea Connoisseur' | 'First Flush Circle' | 'Estate Patron';
+  membershipTier: 'New' | 'Regular' | 'Harvest Club';
   loyaltyPoints: number;
 }
 
@@ -44,7 +44,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
             id: 'ord-91428',
             orderNumber: 'TRM-91428',
             date: 'September 14, 2026',
-            status: 'Dispatched',
+            status: 'In transit',
             total: 4100, // ₹4,100
             trackingNumber: 'TRMA-91428-IND',
             shippingAddress: {
@@ -77,11 +77,11 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const login = (email: string, name?: string) => {
-    const displayName = name || email.split('@')[0] || 'Tea Connoisseur';
+    const displayName = name || email.split('@')[0] || 'Friend';
     const profile: UserProfile = {
       name: displayName.charAt(0).toUpperCase() + displayName.slice(1),
       email: email,
-      membershipTier: 'First Flush Circle',
+      membershipTier: 'Regular',
       loyaltyPoints: 450,
     };
     setUser(profile);

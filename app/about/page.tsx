@@ -1,94 +1,161 @@
-'use client';
-
 import React from 'react';
-import Image from 'next/image';
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
-import { estatePillars } from '@/lib/teaData';
+import Image from 'next/image';
+import { standards } from '@/lib/teaData';
+
+export const metadata: Metadata = {
+  title: 'Our gardens',
+  description:
+    'TIRMA buys whole-leaf tea direct from Upper Assam and saffron from Pampore in Kashmir, dates every pack by harvest month, and sells seven teas rather than seventy.',
+};
 
 export default function AboutPage() {
   return (
-    <div className="bg-[#FAF7F2] min-h-screen py-12 lg:py-20">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-16">
-          <div className="relative h-16 w-16 rounded-full overflow-hidden border border-[#DEC284] mb-6 bg-white">
-            <Image src="/images/logo.jpeg" alt="TIRMA AGRO TECH" fill className="object-cover" />
+    <div className="bg-cream">
+      {/* ---- Opening ---- */}
+      <header className="relative isolate min-h-[420px] overflow-hidden lg:min-h-[520px]">
+        <Image
+          src="/photos/garden-munnar.jpg"
+          alt="Contour-planted tea rows running across a hillside"
+          fill
+          priority
+          sizes="100vw"
+          className="-z-10 object-cover object-center"
+        />
+        <div className="scrim absolute inset-0 -z-10" aria-hidden="true" />
+        <div className="mx-auto flex min-h-[420px] max-w-shell items-end px-6 pb-14 pt-24 sm:px-10 lg:min-h-[520px] lg:px-16">
+          <div className="max-w-2xl">
+            <p className="eyebrow text-cream/70">About</p>
+            <h1 className="mt-3 font-display text-d-lg text-cream">
+              We sell seven teas.
+              <br />
+              <em className="font-normal italic">That is the whole business.</em>
+            </h1>
+          </div>
+        </div>
+      </header>
+
+      {/* ---- Why ---- */}
+      <section className="py-20 lg:py-28">
+        <div className="mx-auto grid max-w-shell gap-12 px-6 sm:px-10 lg:grid-cols-12 lg:gap-16 lg:px-16">
+          <div className="lg:col-span-7">
+            <p className="font-display text-[1.625rem] leading-[1.4]">
+              Most tea sold in India is old, broken and anonymous. It left a
+              garden nobody names, in a year nobody prints, and arrived as dust
+              in a bag — because dust brews fast and hides what it used to be.
+            </p>
+            <p className="prose-measure mt-6 text-bark-70">
+              None of that is a scandal. It is what happens when tea is bought
+              on price by people who will never drink it. The leaf gets graded
+              down, blended across seasons to keep a flavour consistent,
+              warehoused, and sold two years later against a best-before date
+              that tells you nothing about when it was picked.
+            </p>
+            <p className="prose-measure mt-4 text-bark-70">
+              We started TIRMA because the fix is not complicated and nobody was
+              bothering. Buy from gardens you can name. Buy the flush rather
+              than the year. Print the month on the pack. Keep the list short
+              enough that you can taste everything you sell before it ships.
+            </p>
           </div>
 
-          <span className="font-serif italic text-sm text-[#74A287] block mb-2">
-            The Estate Monograph
-          </span>
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-[#182B22] leading-tight">
-            Technology Rooted in Nature.
-          </h1>
-          <p className="mt-4 text-lg text-[#5C6E64] font-serif italic max-w-2xl leading-relaxed">
-            &ldquo;We do not attempt to force nature with synthetic haste; we listen intently to the quiet rhythms of mountain mist, living soil, and sunlight.&rdquo;
-          </p>
+          <aside className="lg:col-span-5">
+            <div className="rounded-card bg-cream-100 p-7">
+              <h2 className="font-display text-[1.375rem]">What we are not</h2>
+              <ul className="mt-5 space-y-4 text-[0.9375rem] leading-[1.7] text-bark-70">
+                <li>
+                  We do not own a plantation. We buy from gardens in Upper Assam
+                  and from saffron growers at Pampore, and we say which.
+                </li>
+                <li>
+                  We do not sell matcha, or anything we would have to import and
+                  then pretend to understand.
+                </li>
+                <li>
+                  We make no health claims. Tea is a good drink. That is enough
+                  to be going on with.
+                </li>
+              </ul>
+            </div>
+          </aside>
         </div>
+      </section>
 
-        {/* Story Section */}
-        <div className="border border-[#DDD2C0] bg-white p-8 sm:p-14 mb-16 space-y-6 font-serif">
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#182B22]">
-            The Synthesis of Earth & Mind
+      {/* ---- The two places ---- */}
+      <section className="bg-garden-500 py-20 text-cream lg:py-28">
+        <div className="mx-auto max-w-shell px-6 sm:px-10 lg:px-16">
+          <h2 className="max-w-2xl font-display text-d-md text-cream">
+            Assam is a lowland tea. We say so on the pack.
           </h2>
-          <p className="text-sm sm:text-base text-[#475E52] leading-relaxed">
-            Founded on the conviction that pure whole-leaf tea is the finest daily restorative medicine for modern consciousness, TIRMA brings together multi-generational tea masters in Darjeeling and Shizuoka with natural ecological precision.
-          </p>
-          <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-            Industrial commercial agriculture strips tea gardens of their biodiversity, drenching bushes in petrochemical nitrogen to force artificial yield. The result is bitter, water-heavy, lifeless leaves. At TIRMA, our high-altitude cloud terraces are preserved as diverse, thriving sanctuaries where native birds, beneficial insects, mountain spring streams, and wild forest mulch nourish deep root systems.
-          </p>
-        </div>
 
-        {/* 4 Pillars */}
-        <div className="mb-20">
-          <h3 className="font-serif text-2xl font-bold text-[#182B22] mb-8 pb-3 border-b border-[#DDD2C0]">
-            The Four Botanical Commitments
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {estatePillars.map((p) => (
-              <div key={p.number} className="border border-[#DDD2C0] bg-[#F4EFE6] p-8">
-                <span className="font-serif text-3xl text-[#B98E3F] block mb-2">{p.number}</span>
-                <h4 className="font-serif text-lg font-bold text-[#182B22] mb-1">{p.name}</h4>
-                <span className="text-[10px] uppercase tracking-wider font-semibold text-[#895237] block mb-3 font-sans">
-                  {p.subtitle}
-                </span>
-                <p className="font-serif text-xs sm:text-sm text-[#475E52] leading-relaxed">
-                  {p.story}
-                </p>
-              </div>
+          <div className="mt-12 grid gap-10 lg:grid-cols-3">
+            {[
+              {
+                img: '/photos/garden-walk-india.jpg',
+                alt: 'A path running between tea bushes in an Indian garden',
+                h: 'Upper Assam · 45–120 m',
+                b: 'River flats, not hills. The heat and the silt are exactly what make assamica leaf thick and malty, and strong enough to take milk. Altitude would make it delicate — which is the opposite of what this tea is for.',
+              },
+              {
+                img: '/photos/plucker-india.jpg',
+                alt: 'A tea picker between rows of bushes',
+                h: 'Second flush · June',
+                b: 'The bush pushes three main flushes. June is the one worth paying for: golden tip, malt at its peak, and a window only a few weeks wide. When a pack names the flush and the month, you can check it.',
+              },
+              {
+                img: '/photos/saffron-threads.jpg',
+                alt: 'Saffron threads',
+                h: 'Pampore · 1,600 m',
+                b: 'Saffron is the most adulterated spice on earth, and kahwa is where most of the faking lands. Ours goes in as whole threads so you can look for the trumpet shape yourself.',
+              },
+            ].map((c) => (
+              <article key={c.h}>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-card">
+                  <Image
+                    src={c.img}
+                    alt={c.alt}
+                    fill
+                    sizes="(max-width: 1024px) 92vw, 30vw"
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="mt-5 font-display text-[1.375rem] text-cream">{c.h}</h3>
+                <p className="mt-2.5 text-[0.9375rem] leading-[1.7] text-cream/75">{c.b}</p>
+              </article>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Delivery & Guarantees in INR */}
-        <div id="shipping" className="border border-[#243F32] bg-[#182B22] text-[#FAF7F2] p-8 sm:p-14 mb-16 font-serif">
-          <span className="font-sans text-[10px] uppercase tracking-widest text-[#DEC284] block mb-2">
-            Complimentary Indian Delivery & Guarantee
-          </span>
-          <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#FAF7F2] mb-6">
-            Sealed Fresh at the Garden
-          </h3>
-          <div className="space-y-4 text-xs sm:text-sm text-[#C7DBD0] leading-relaxed">
-            <p>
-              • <strong className="text-white">Complimentary Delivery Across India:</strong> All orders of ₹1,499 and above qualify for complimentary courier delivery directly to your doorstep in insulated, zero-plastic compostable packaging. Standard delivery is ₹120 for orders below ₹1,499.
-            </p>
-            <p>
-              • <strong className="text-white">30-Day Freshness Guarantee:</strong> If a harvest fails to delight your palate with fragrance and clarity, write to us at <a href="mailto:concierge@tirma-tea.org" className="text-[#DEC284] underline">concierge@tirma-tea.org</a> within 30 days for a quiet replacement or refund.
-            </p>
-          </div>
+      {/* ---- Standards ---- */}
+      <section className="py-20 lg:py-28">
+        <div className="mx-auto max-w-shell px-6 sm:px-10 lg:px-16">
+          <p className="eyebrow">Our standards</p>
+          <h2 className="mt-3 font-display text-d-md">Four things we will put in writing.</h2>
 
-          <div className="mt-8">
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-2 bg-[#DEC284] text-[#182B22] px-6 py-3 text-xs uppercase tracking-widest-estate font-bold hover:bg-white transition-colors"
-            >
-              <span>Explore The Harvests</span>
-              <ArrowRight className="h-3.5 w-3.5" />
+          <ol className="mt-12 grid gap-8 sm:grid-cols-2">
+            {standards.map((s) => (
+              <li key={s.n} className="rounded-card bg-cream-100 p-7">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-garden-500 text-[0.875rem] text-cream">
+                  {Number(s.n)}
+                </span>
+                <h3 className="mt-5 font-display text-[1.375rem] leading-snug">{s.title}</h3>
+                <p className="mt-2.5 text-[0.9375rem] leading-[1.7] text-bark-70">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-14">
+            <Link href="/tea" className="btn btn-primary">
+              See the seven
+              <span className="arrow" aria-hidden="true">
+                →
+              </span>
             </Link>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

@@ -1,85 +1,84 @@
-# TIRMA AGRO TECH — Technology Rooted in Nature 🍵
+# TIRMA
 
-An aesthetic, high-performance organic tea e-commerce web application built with **Next.js 16.3.5**, **React 19**, **TypeScript**, and **Tailwind CSS**.
+Single-origin Indian tea, sold by the harvest. Next.js 16 · TypeScript · Tailwind.
 
-![TIRMA AGRO TECH Banner](/logo.jpeg)
+## The design
 
----
+Warm, photographic, and built around the hills the tea comes from. A
+photograph opens the page; the shop sits directly beneath it, so nobody has
+to scroll past a manifesto to buy tea.
 
-## 🌿 Highlights & Features
+- **Cream, garden green, terracotta.** `#FBF7F0` paper, `#2F4A36` garden
+  green, `#B5643C` clay — the colour of a kulhad and of the red earth between
+  tea rows. Defined in `tailwind.config.js`.
+- **Fraunces and Karla.** Fraunces is a variable serif run with its `SOFT`
+  and `WONK` axes up, which rounds the terminals and swaps in the softer
+  alternates; that is what keeps it warm rather than sharp and editorial.
+  Karla is a humanist sans with some character, not another neutral grotesque.
+- **No monospace anywhere.** An earlier build set every label in mono, which
+  is most of why it read as a dashboard rather than a shop.
+- **Soft corners and soft light.** `rounded-card` / `rounded-plate`, and two
+  gentle shadows (`lift`, `lift-lg`). Nothing has a hard 90° corner.
+- **One curve.** `cubic-bezier(0.22, 1, 0.36, 1)` on everything. Cards lift
+  3px and their photo scales 4.5% on hover; that is the extent of the motion.
+- **Photography does the work.** See `PHOTOS.md` for the image inventory,
+  licensing and the swap-in checklist.
 
-- **Single-Estate Organic Collection (`/products`)**:
-  - Filterable by tea variety (*Ceremonial Matcha, Green Tea, Black Tea, Oolong, Herbal & Tisane, Accessories*).
-  - Live query search, price sorting, caffeine level filters, and package size selectors.
-  - Interactive "Add to Bag" with real-time stock counters and feedback.
+Everything honours `prefers-reduced-motion`.
 
-- **Phytochemical Product Detail (`/product/[slug]`)**:
-  - Multi-angle gallery with responsive thumbnail switcher.
-  - Flavor radar profile (*Umami, Sweetness, Astringency, Aroma*).
-  - Certified sommelier brewing protocol (*temperature, leaf ratio, steep time, re-steeping*).
-  - Expandable accordions for single-estate provenance, certified ingredients, and health benefits.
+## Content rules
 
-- **Artisanal Brewing Protocols (`/recipes`)**:
-  - Step-by-step masterclasses (*Velvet Ceremonial Matcha Latte, 12-Hour Cold-Brew Jade Sencha, Golden Calm Evening Tisane*).
-  - Interactive ingredients checklist and sommelier pro tips.
+Copy is specific rather than lyrical, because specifics are what a customer
+can check:
 
-- **The Agro-Tech Journal (`/journal`)**:
-  - Phytochemical theses and essays exploring the neuroscience of L-Theanine, living soil mycorrhizal networks, and steeping thermodynamics.
-  - Interactive connoisseur reflections discussion.
+- State the real elevation. Assam is a lowland tea (45–120 m) and the site
+  says so, rather than borrowing a mountain.
+- Name the flush and the month, not the year.
+- Explain mechanisms — why blue tea turns violet, why milk goes in after the
+  boil — instead of asserting quality.
+- No health or medical claims anywhere.
 
-- **Interactive Shopping Bag Drawer & Checkout (`/checkout`)**:
-  - Slide-over drawer with item management, quantity controls, and free shipping progress meter.
-  - Working promo code validation (`ORGANIC10` for 10% off, `HARVEST20` for 20% off).
-  - Simulated secure checkout with celebratory confetti animation.
+## Structure
 
-- **Order Tracking & Dispatch (`/orders`)**:
-  - Live dispatch status tracker (*Order Placed → Quality Check → Eco-Courier → Delivered*).
-  - Reorder shortcuts and packaging details.
+```
+app/
+  page.tsx            home — Hero, ShopRange, Gardens, Standards, StarterBox, Reviews, JournalTeaser
+  tea/                shop grid and /tea/[slug] detail
+  brewing/            four methods, and /brewing/[slug]
+  journal/            long-form notes, and /journal/[slug]
+  about/ terms/ checkout/ orders/ payment/
+components/
+  Hero.tsx            full-bleed garden photograph and the one-line pitch
+  TeaCard.tsx         the product card, used by every grid on the site
+  ShopRange.tsx       the shop, directly under the hero
+  TeaGrid.tsx         filterable catalogue (client; Suspense-wrapped by the route)
+  TeaDetail.tsx       product page — gallery, size picker, brew guide
+  Gardens.tsx Standards.tsx StarterBox.tsx Reviews.tsx
+  JournalTeaser.tsx Masthead.tsx Footer.tsx
+lib/teaData.ts        the whole catalogue, recipes, journal, testimonials
+types/index.ts        Product, Liquor, Recipe, JournalPost, Order
+```
 
----
+Adding a tea means adding one entry to `productsData`. The home page shows the
+first six non-`Sets` teas; everything appears on `/tea`.
 
-## 🚀 Tech Stack
+## Running it
 
-- **Framework**: [Next.js 16.3.5](https://nextjs.org/) (App Router, Turbopack)
-- **UI Library**: [React 19](https://react.dev/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Language**: TypeScript 5
-- **Effects**: Canvas Confetti
+```bash
+npm install
+npm run dev     # http://localhost:3000
+npm run build
+```
 
----
+## Known gaps
 
-## 🛠️ Local Development
-
-1. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-2. **Run the development server**:
-   ```bash
-   npm run dev
-   ```
-
-3. **Build for production**:
-   ```bash
-   npm run build
-   ```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
----
-
-## 🌐 Deploy to Vercel
-
-This repository is pre-configured for seamless zero-configuration deployment on [Vercel](https://vercel.com).
-
-1. Import the repository `https://github.com/Sakibimam/Tirma.git` on Vercel.
-2. Framework preset will automatically be detected as **Next.js**.
-3. Click **Deploy**.
-
----
-
-## 👤 Author
-
-- **Sakibimam** ([@Sakibimam](https://github.com/Sakibimam))
+- Checkout, orders and the auth modal are front-end mocks; there is no payment
+  gateway or backend wired up.
+- `.eslintrc.json` is the legacy format and ESLint 9 wants a flat
+  `eslint.config.js`. `npm run lint` needs migrating.
+- **All photography is free-licensed stock, not yours.** It is legally clean
+  (Pexels licence, commercial use, no attribution) but generic. `PHOTOS.md`
+  lists every file, what it stands in for, and the priority order for
+  replacing it. Start with the blue pea colour change.
+- Legal copy in `/terms` is plain-language and deliberately modest, but it has
+  not been reviewed by anyone qualified.

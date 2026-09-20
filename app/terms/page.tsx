@@ -1,77 +1,92 @@
-'use client';
-
 import React from 'react';
-import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Delivery, returns & terms',
+  description:
+    'How TIRMA ships, what we do if a pack arrives wrong, and the terms of sale.',
+};
+
+const SECTIONS = [
+  {
+    n: '01',
+    title: 'What we claim about the tea',
+    body: [
+      'We tell you the region, the approximate elevation and the month the leaf was picked. Those three things are on every pack and we stand behind them.',
+      'We do not claim organic certification for teas that do not carry it, and we do not make health or medical claims. Tea is a drink. Anything beyond that is somebody else’s marketing.',
+    ],
+  },
+  {
+    n: '02',
+    title: 'Delivery',
+    body: [
+      'Orders are packed to order and dispatched within two working days. Delivery across India typically takes three to six working days depending on the pin code.',
+      'Delivery is free on orders over ₹1,499. Below that a flat ₹120 applies. You will get a tracking number by email when the parcel leaves us.',
+    ],
+  },
+  {
+    n: '03',
+    title: 'If something is wrong',
+    body: [
+      'If a pack arrives damaged, leaking, or is not what you ordered, tell us within seven days and we will replace it or refund it. You do not need to send it back and we will not ask you for a photograph of the inside of the pouch.',
+      'Because tea is a food product, we cannot take back a pouch that has been opened simply because you did not care for it — which is exactly why the Index Box exists. Try four small ones first.',
+    ],
+  },
+  {
+    n: '04',
+    title: 'Prices and payment',
+    body: [
+      'All prices are in Indian rupees and include applicable taxes. Prices change between harvests, because what we pay changes between harvests.',
+      'Payment is taken at checkout. We do not store card details.',
+    ],
+  },
+  {
+    n: '05',
+    title: 'Your details',
+    body: [
+      'We keep your name, address, email and order history so we can send you tea and answer questions about past orders. We do not sell that to anybody.',
+      'The harvest notice is opt-in and every email carries an unsubscribe link that works.',
+    ],
+  },
+];
 
 export default function TermsPage() {
   return (
-    <div className="bg-[#FAF7F2] min-h-screen py-12 lg:py-20 font-serif">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-14 pb-4 border-b border-[#DDD2C0]">
-          <span className="font-serif italic text-sm text-[#74A287]">
-            The Estate Commitments
-          </span>
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-[#182B22] mt-1">
-            Organic Warranty & Shop Regulations
+    <div className="bg-cream">
+      <header className="border-b border-[color:var(--line)]">
+        <div className="mx-auto max-w-shell px-6 pb-16 pt-20 sm:px-10 lg:px-16">
+          <p className="eyebrow text-bark-50">Terms</p>
+          <h1 className="mt-6 font-display text-d-md">
+            Delivery, returns, <span className="italic">and the small print.</span>
           </h1>
-          <p className="mt-2 text-sm text-[#5C6E64] font-serif">
-            Quiet, honest commitments to bio-dynamic soil integrity, patron data privacy, and ethical trade.
+          <p className="prose-measure mt-8 text-bark-70">
+            Written to be read rather than to be defensible. If something here is
+            unclear, write to us and we will fix the wording.
           </p>
         </div>
+      </header>
 
-        <div className="border border-[#DDD2C0] bg-white p-8 sm:p-14 space-y-10 text-xs sm:text-sm text-[#475E52] leading-relaxed">
-          {/* Section 1 */}
-          <div>
-            <h2 className="font-serif text-xl font-bold text-[#182B22] mb-3">
-              § 1. 100% Certified Organic Harvest Guarantee
-            </h2>
-            <p>
-              TIRMA Agro Tech guarantees that all whole-leaf teas, ceremonial matcha, and botanical tisanes sold through our platform originate exclusively from certified organic or bio-dynamic mountain estates. Every seasonal harvest is independently tested to verify 100% absence of synthetic pesticide residues, glyphosate, heavy metals, and radiation.
-            </p>
-          </div>
-
-          {/* Section 2 */}
-          <div>
-            <h2 className="font-serif text-xl font-bold text-[#182B22] mb-3">
-              § 2. Carbon-Neutral Indian & Global Dispatch
-            </h2>
-            <p>
-              All orders are hand-packed within 24 hours of garden allocation in zero-plastic, compostable packaging. Consignments exceeding ₹1,499 qualify for complimentary delivery across India. Standard delivery is ₹120 for orders below ₹1,499. Standard delivery timeline across India is 2-4 business days.
-            </p>
-          </div>
-
-          {/* Section 3 */}
-          <div>
-            <h2 className="font-serif text-xl font-bold text-[#182B22] mb-3">
-              § 3. 30-Day Freshness Return & Replacement Policy
-            </h2>
-            <p>
-              Your palate satisfaction is our paramount priority. If any tea, tisane, or handcrafted bamboo accessory does not meet your expectations for fragrance, clarity, or mouthfeel, you are entitled to a quiet full refund or replacement within 30 days of receipt. Contact our concierge at <a href="mailto:concierge@tirma-tea.org" className="text-[#182B22] font-bold underline">concierge@tirma-tea.org</a>.
-            </p>
-          </div>
-
-          {/* Section 4 */}
-          <div>
-            <h2 className="font-serif text-xl font-bold text-[#182B22] mb-3">
-              § 4. Patron Privacy & Ethical Commerce
-            </h2>
-            <p>
-              TIRMA maintains strict compliance with modern global data privacy principles. We never monetize or distribute your personal details to marketing brokers. Payment transactions are secured with 256-bit SSL encryption.
-            </p>
-          </div>
-
-          <div className="pt-6 border-t border-[#DDD2C0] flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span className="text-xs text-[#7A8E82] italic">
-              Archived: September 2026 • TIRMA AGRO TECH
-            </span>
-            <Link
-              href="/products"
-              className="bg-[#182B22] px-6 py-2.5 text-xs uppercase tracking-widest-estate font-bold text-[#FAF7F2] hover:bg-[#315442] transition-colors"
+      <div className="mx-auto max-w-shell px-6 py-16 sm:px-10 lg:px-16">
+        <ol>
+          {SECTIONS.map((s) => (
+            <li
+              key={s.n}
+              className="grid gap-x-16 gap-y-4 border-t border-[color:var(--line)] py-10 last:border-b lg:grid-cols-12"
             >
-              Return to Harvests
-            </Link>
-          </div>
-        </div>
+              <span className="eyebrow text-bark-50 lg:col-span-1">{s.n}</span>
+              <h2 className="font-display text-[1.625rem] leading-tight lg:col-span-4">
+                {s.title}
+              </h2>
+              <div className="space-y-4 lg:col-span-7">
+                {s.body.map((para) => (
+                  <p key={para} className="text-[0.975rem] leading-[1.75] text-bark-70">
+                    {para}
+                  </p>
+                ))}
+              </div>
+            </li>
+          ))}
+        </ol>
       </div>
     </div>
   );
