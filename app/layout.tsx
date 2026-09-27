@@ -1,51 +1,28 @@
 import type { Metadata } from 'next';
-import { Fraunces, Karla } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
 import { UserProvider } from '@/context/UserContext';
 import { Masthead, Footer, NotificationToast } from '@/components';
 
-// Fraunces has optical sizing and a "soft" axis — it reads warm and slightly
-// handmade, which is the whole point. Karla is a humanist sans with a bit of
-// character rather than another neutral grotesque.
-// Variable font: `axes` requires the weight axis to stay variable, so no
-// explicit weight list here. SOFT rounds the terminals and WONK swaps in the
-// cursive-ish alternates — together they are what stop it reading as a stiff
-// editorial serif.
-const display = Fraunces({
-  subsets: ['latin'],
-  style: ['normal', 'italic'],
-  axes: ['SOFT', 'WONK', 'opsz'],
-  variable: '--font-display',
-  display: 'swap',
-});
-
-const sans = Karla({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-sans',
-  display: 'swap',
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL('https://tirma.tea'),
   title: {
-    default: 'TIRMA — Hill-grown tea from Assam & Kashmir',
+    default: 'TIRMA — Pure Indian tea from Upper Assam & Darjeeling',
     template: '%s — TIRMA',
   },
   description:
-    'Whole-leaf tea from the gardens of Assam and the Kashmir valley, with the harvest month printed on every pack. Assam black for chai, first-flush green, Kashmiri kahwa and caffeine-free blue pea.',
+    'Whole-leaf tea and bold chai from Upper Assam and the misty slopes of Darjeeling, with the harvest month printed on every pack. Everyday Assam CTC, Kadak chai, highway Dhaba mix, Darjeeling delight, and soft green tea.',
   keywords: [
     'Assam tea online',
-    'Kashmiri kahwa',
-    'blue pea flower tea',
-    'butterfly pea tea India',
+    'Darjeeling tea',
+    'kadak chai online',
+    'dhaba chai mix',
     'whole leaf tea',
-    'masala chai whole spice',
+    'everyday assam ctc',
     'buy loose leaf tea India',
   ],
   openGraph: {
-    title: 'TIRMA — Hill-grown tea from Assam & Kashmir',
+    title: 'TIRMA — Pure Indian tea from Upper Assam & Darjeeling',
     description:
       'Whole-leaf tea with the harvest month on every pack. Shipped across India.',
     type: 'website',
@@ -56,7 +33,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={`${display.variable} ${sans.variable}`}>
+    <html lang="en-IN">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Karla:ital,wght@0,400..700;1,400..700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="flex min-h-screen flex-col bg-cream font-sans text-bark antialiased">
         <UserProvider>
           <CartProvider>

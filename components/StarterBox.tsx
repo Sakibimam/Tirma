@@ -38,9 +38,9 @@ export const StarterBox: React.FC = () => {
                 Try all four for a fortnight.
               </h2>
               <p className="mt-4 text-[1.0625rem] leading-[1.7] text-bark-70">
-                Twenty-five grams each of the Assam, the green, the kahwa and
-                the blue pea — about ten cups apiece. Enough to live with a tea
-                rather than judge it on one cup.
+                Twenty-five grams each of Darjeeling Delight, Kadak Chai, Regular
+                Assam CTC and Green Tea — about ten cups apiece. Enough to live
+                with each tea rather than judge it on one cup.
               </p>
 
               <ul className="mt-7 space-y-2.5">

@@ -63,7 +63,7 @@ export const Masthead: React.FC = () => {
                 overHero ? 'text-cream/65' : 'text-bark-50'
               }`}
             >
-              ASSAM &amp; KASHMIR
+              ASSAM &amp; DARJEELING
             </span>
           </Link>
 

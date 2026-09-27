@@ -10,8 +10,7 @@ const FILTERS: { label: string; value: TeaCategory | 'All' }[] = [
   { label: 'Everything', value: 'All' },
   { label: 'Black & chai', value: 'Black Tea' },
   { label: 'Green', value: 'Green Tea' },
-  { label: 'Blue', value: 'Blue Tea' },
-  { label: 'Spiced', value: 'Spiced Blend' },
+  { label: 'Spiced blends', value: 'Spiced Blend' },
   { label: 'Sets', value: 'Sets' },
 ];
 

@@ -1,7 +1,6 @@
 export type TeaCategory =
   | 'Black Tea'
   | 'Green Tea'
-  | 'Blue Tea'
   | 'Spiced Blend'
   | 'Sets';
 
@@ -74,6 +73,7 @@ export interface Product {
   /** Plain, defensible benefits. No medical claims. */
   benefits: string[];
   inStock: boolean;
+  isUpcoming?: boolean;
   /** Appears as one of the four full-colour panels on the home page. */
   inIndex?: boolean;
   isFeatured?: boolean;

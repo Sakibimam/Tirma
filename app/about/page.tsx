@@ -7,7 +7,7 @@ import { standards } from '@/lib/teaData';
 export const metadata: Metadata = {
   title: 'Our gardens',
   description:
-    'TIRMA buys whole-leaf tea direct from Upper Assam and saffron from Pampore in Kashmir, dates every pack by harvest month, and sells seven teas rather than seventy.',
+    'TIRMA buys pure leaf direct from Upper Assam and orthodox estates in Darjeeling, dates every pack by harvest month, and sells honest tea rather than mass commodity blends.',
 };
 
 export default function AboutPage() {
@@ -65,8 +65,8 @@ export default function AboutPage() {
               <h2 className="font-display text-[1.375rem]">What we are not</h2>
               <ul className="mt-5 space-y-4 text-[0.9375rem] leading-[1.7] text-bark-70">
                 <li>
-                  We do not own a plantation. We buy from gardens in Upper Assam
-                  and from saffron growers at Pampore, and we say which.
+                  We do not own a plantation. We buy directly from estates in
+                  Upper Assam and heritage gardens in Darjeeling, and we say which.
                 </li>
                 <li>
                   We do not sell matcha, or anything we would have to import and
@@ -100,14 +100,14 @@ export default function AboutPage() {
               {
                 img: '/photos/plucker-india.jpg',
                 alt: 'A tea picker between rows of bushes',
-                h: 'Second flush · June',
-                b: 'The bush pushes three main flushes. June is the one worth paying for: golden tip, malt at its peak, and a window only a few weeks wide. When a pack names the flush and the month, you can check it.',
+                h: 'High-fire CTC · Fresh Leaf',
+                b: 'Daily chai needs proper leaf, not sweepings. We select high-fire CTC grains packed monthly, so the leaf retains its malty vigour and extracts rich red colour without long simmering.',
               },
               {
-                img: '/photos/saffron-threads.jpg',
-                alt: 'Saffron threads',
-                h: 'Pampore · 1,600 m',
-                b: 'Saffron is the most adulterated spice on earth, and kahwa is where most of the faking lands. Ours goes in as whole threads so you can look for the trumpet shape yourself.',
+                img: '/photos/garden-hills.jpg',
+                alt: 'Tea terraces on a steep hillside in Darjeeling',
+                h: 'Darjeeling · 1,400–1,800 m',
+                b: 'Himalayan mist and steep mountain terraces slow down leaf growth, creating the muscatel notes and floral amber liquor unique to orthodox Darjeeling.',
               },
             ].map((c) => (
               <article key={c.h}>

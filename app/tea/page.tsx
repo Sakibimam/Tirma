@@ -6,7 +6,7 @@ import { TeaGrid } from '@/components/TeaGrid';
 export const metadata: Metadata = {
   title: 'Shop tea',
   description:
-    'Seven whole-leaf teas from Assam and Kashmir — second flush Assam, first flush green, Kashmiri kahwa, blue pea flower, masala chai and everyday CTC.',
+    'Pure unblended teas from Upper Assam and Darjeeling — Everyday Assam CTC, Kadak chai, highway Dhaba mix, green tea, Darjeeling delight, and our upcoming whole spice masala chai.',
 };
 
 export default function TeaPage() {

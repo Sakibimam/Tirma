@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Karla:ital,wght@0,400..700;1,400..700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,6 +12,8 @@
    ================================================================= */
 
 :root {
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans: 'Karla', system-ui, -apple-system, sans-serif;
   --cream: #fbf7f0;
   --cream-100: #f6efe3;
   --cream-200: #efe5d4;

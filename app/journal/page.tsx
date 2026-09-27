@@ -7,7 +7,7 @@ import { journalPostsData } from '@/lib/teaData';
 export const metadata: Metadata = {
   title: 'Journal',
   description:
-    'Notes from the valley: why Assam is a lowland tea, how saffron gets faked, and the chemistry behind blue tea turning violet.',
+    'Notes from the valley: why Assam is a lowland tea, why highway dhaba chai tastes better, and what makes Darjeeling muscatel.',
 };
 
 export default function JournalPage() {

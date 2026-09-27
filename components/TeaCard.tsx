@@ -43,6 +43,11 @@ export const TeaCard: React.FC<Props> = ({ tea, priority = false }) => {
             Takes milk
           </span>
         )}
+        {tea.isUpcoming && (
+          <span className="absolute bottom-3 left-3 rounded-full bg-clay-500 px-3 py-1 text-[0.75rem] font-medium text-cream shadow-sm">
+            Upcoming
+          </span>
+        )}
       </Link>
 
       <div className="flex flex-1 flex-col p-5">
@@ -67,13 +72,19 @@ export const TeaCard: React.FC<Props> = ({ tea, priority = false }) => {
             <p className="mt-1 text-[0.8125rem] text-bark-50">about ₹{perCup} a cup</p>
           </div>
 
-          <button
-            onClick={() => addToCart(tea)}
-            className="btn btn-primary px-5 py-2.5 text-[0.875rem]"
-            aria-label={`Add ${tea.title} to bag`}
-          >
-            Add
-          </button>
+          {tea.isUpcoming ? (
+            <span className="rounded-full bg-cream-200 px-4 py-2 text-[0.8125rem] font-medium text-bark-50">
+              Upcoming
+            </span>
+          ) : (
+            <button
+              onClick={() => addToCart(tea)}
+              className="btn btn-primary px-5 py-2.5 text-[0.875rem]"
+              aria-label={`Add ${tea.title} to bag`}
+            >
+              Add
+            </button>
+          )}
         </div>
       </div>
     </article>

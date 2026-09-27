@@ -10,7 +10,7 @@ const COLUMNS = [
       { name: 'All tea', href: '/tea' },
       { name: 'Black & chai', href: '/tea?c=Black+Tea' },
       { name: 'Green tea', href: '/tea?c=Green+Tea' },
-      { name: 'Caffeine-free', href: '/tea?c=Blue+Tea' },
+      { name: 'Spiced blends', href: '/tea?c=Spiced+Blend' },
       { name: 'The Index Box', href: '/tea/the-index-box' },
     ],
   },
@@ -105,7 +105,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="mt-14 flex flex-col gap-3 border-t border-cream/15 pt-7 text-[0.8125rem] text-cream/55 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} TIRMA · Upper Assam &amp; Kashmir Valley</p>
+          <p>© {new Date().getFullYear()} TIRMA · Upper Assam &amp; Darjeeling</p>
           <p>Prices in ₹ · Shipped across India</p>
         </div>
       </div>

@@ -29,7 +29,7 @@ export const Hero: React.FC = () => (
 
     <div className="mx-auto flex min-h-[560px] max-w-shell items-end px-6 pb-14 pt-[calc(var(--nav)+3rem)] sm:px-10 lg:min-h-[calc(100svh-var(--announce))] lg:items-center lg:px-16 lg:pb-16">
       <div className="max-w-xl text-cream">
-        <p className="eyebrow rise text-cream/75">Assam &amp; the Kashmir valley</p>
+        <p className="eyebrow rise text-cream/75">Assam &amp; Darjeeling</p>
 
         <h1
           className="rise mt-5 font-display text-d-lg font-normal text-cream"
@@ -44,9 +44,9 @@ export const Hero: React.FC = () => (
           className="rise mt-6 max-w-lg text-[1.0625rem] leading-[1.7] text-cream/85"
           style={{ animationDelay: '160ms' }}
         >
-          Whole-leaf Assam for your morning chai, a soft first-flush green,
-          Kashmiri kahwa with real Pampore saffron, and caffeine-free blue pea.
-          Every pack carries the month its leaf was picked.
+          High-grown Darjeeling delight, extra-bold Kadak chai, everyday Assam
+          CTC, soft green tea, and fragrant Dhaba mix. Every pack carries the month
+          its leaf was picked.
         </p>
 
         <div

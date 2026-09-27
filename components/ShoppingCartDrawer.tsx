@@ -92,7 +92,7 @@ export const ShoppingCartDrawer: React.FC = () => {
             <div className="flex h-full flex-col items-center justify-center text-center">
               <p className="font-display text-2xl">Nothing in the bag yet.</p>
               <p className="prose-measure mt-3 text-[0.925rem] text-bark-70">
-                Seven teas from Assam and Kashmir. If you are not sure where to
+                Teas from Upper Assam and Darjeeling. If you are not sure where to
                 begin, the Index Box has all four of the main ones.
               </p>
               <Link

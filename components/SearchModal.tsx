@@ -60,7 +60,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
           <Search className="h-4 w-4 text-[#5C5043]" />
           <input
             type="text"
-            placeholder="Search organic harvests, origins, botanicals (e.g. Saffron, Chamomile, Uji)..."
+            placeholder="Search whole leaf harvests, CTC, origins (e.g. Assam, Darjeeling, Dhaba)..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             autoFocus
@@ -77,7 +77,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
         {/* Quick Suggestion Tags */}
         <div className="bg-[#FBF7F0] px-6 py-2.5 border-b border-[#E3D6C0] flex flex-wrap items-center gap-2 text-xs">
           <span className="text-[#7A6D5D] italic">Explore:</span>
-          {['Assam', 'Blue pea', 'Kahwa', 'Green', 'Chai', 'Caffeine-free'].map((tag) => (
+          {['Darjeeling', 'Kadak', 'Assam', 'Green', 'Dhaba', 'Chai'].map((tag) => (
             <button
               key={tag}
               onClick={() => setQuery(tag)}
@@ -135,9 +135,9 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
             </div>
           ) : (
             <div className="text-center py-10">
-              <p className="text-[#33291F] text-sm">No botanicals found for &ldquo;{query}&rdquo;</p>
+              <p className="text-[#33291F] text-sm">No teas found for &ldquo;{query}&rdquo;</p>
               <p className="text-xs italic text-[#5C6E64] mt-1">
-                Try &quot;Assam&quot;, &quot;blue&quot; or &quot;caffeine-free&quot;
+                Try &quot;Assam&quot;, &quot;Darjeeling&quot; or &quot;Kadak&quot;
               </p>
             </div>
           )}

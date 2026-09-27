@@ -48,6 +48,7 @@ When asked to build or generate UI components, default to the following stack un
 
 ## Example
 
+
 **User request:**
 
 > Build a highly interactive web interface with spatial depth, glassmorphism, and motion-heavy UI.

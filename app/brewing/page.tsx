@@ -7,7 +7,7 @@ import { recipesData, getProductById } from '@/lib/teaData';
 export const metadata: Metadata = {
   title: 'Brewing',
   description:
-    'How to brew it: milk tea done properly, kahwa the Srinagar way, cold-brew green, and the blue pea colour change.',
+    'How to brew it: milk tea done properly, highway dhaba chai, cold-brew green, and Darjeeling orthodox steep.',
 };
 
 export default function BrewingPage() {

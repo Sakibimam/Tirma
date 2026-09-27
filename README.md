@@ -34,7 +34,7 @@ can check:
 - State the real elevation. Assam is a lowland tea (45–120 m) and the site
   says so, rather than borrowing a mountain.
 - Name the flush and the month, not the year.
-- Explain mechanisms — why blue tea turns violet, why milk goes in after the
+- Explain mechanisms — why highway dhaba chai tastes better, why milk goes in after the
   boil — instead of asserting quality.
 - No health or medical claims anywhere.
 

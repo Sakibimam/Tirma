@@ -13,11 +13,11 @@ export const Gardens: React.FC = () => (
       <header className="max-w-2xl">
         <p className="eyebrow text-cream/60">Where it grows</p>
         <h2 className="mt-3 font-display text-d-md text-cream">
-          Two valleys, and no borrowed mountains.
+          Two terroirs, and no borrowed claims.
         </h2>
         <p className="mt-5 text-[1.0625rem] leading-[1.75] text-cream/80">
-          Almost every tea brand claims altitude, because altitude sounds like
-          quality. We will tell you the truth in both directions.
+          From the heat-drenched river flats of Upper Assam to the high mist of
+          Darjeeling, we tell you the exact garden elevations and plucking standards.
         </p>
       </header>
 
@@ -32,12 +32,12 @@ export const Gardens: React.FC = () => (
             body: 'The Brahmaputra gardens sit on flat river land that floods often enough to keep renewing itself. That heat is exactly what makes assamica leaf thick and malty — strong enough to take milk without vanishing into it. It is why the Indian cup is built on this leaf.',
           },
           {
-            img: '/photos/saffron-threads.jpg',
-            alt: 'Saffron threads',
-            place: 'Pampore, Kashmir',
-            height: '1,600 m',
-            title: 'Three weeks, picked by hand',
-            body: 'Saffron has grown on the plateau south of Srinagar for a thousand years. The harvest runs about three weeks in late October and every flower is picked by hand, three threads apiece — roughly 150,000 flowers to the kilogram. Ours goes in whole so you can see it.',
+            img: '/photos/garden-hills.jpg',
+            alt: 'Misty tea terraces on a steep hillside in Darjeeling',
+            place: 'Kurseong & Mirik, Darjeeling',
+            height: '1,400–1,800 m above sea level',
+            title: 'Himalayan mist and slow mountain sun',
+            body: 'High along the eastern Himalayan ridges, cool night mists slow down the growth of the tea bush. That slow pace allows the plant to synthesize complex aromatic terpenes, creating the amber-gold cup and natural muscatel grape note Darjeeling orthodox tea is prized for.',
           },
         ].map((g) => (
           <article key={g.place}>

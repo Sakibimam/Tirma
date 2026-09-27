@@ -71,7 +71,14 @@ export const TeaDetail: React.FC<Props> = ({ tea, related }) => {
 
           {/* ---- Buy ---- */}
           <div>
-            <p className="eyebrow">{tea.category}</p>
+            <div className="flex items-center gap-3">
+              <p className="eyebrow">{tea.category}</p>
+              {tea.isUpcoming && (
+                <span className="rounded-full bg-clay-500 px-3 py-0.5 text-[0.75rem] font-medium text-cream shadow-sm">
+                  Upcoming
+                </span>
+              )}
+            </div>
             <h1 className="mt-2.5 font-display text-d-sm">{tea.title}</h1>
             <p className="mt-2 text-[0.9375rem] text-bark-50">{tea.subtitle}</p>
 
@@ -148,10 +155,10 @@ export const TeaDetail: React.FC<Props> = ({ tea, related }) => {
 
               <button
                 onClick={() => addToCart(tea, size.label, qty)}
-                disabled={!tea.inStock}
+                disabled={!tea.inStock || tea.isUpcoming}
                 className="btn btn-primary ml-auto disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {tea.inStock ? 'Add to bag' : 'Out of stock'}
+                {tea.isUpcoming ? 'Upcoming blend' : tea.inStock ? 'Add to bag' : 'Out of stock'}
                 <span className="arrow" aria-hidden="true">
                   →
                 </span>
