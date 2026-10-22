@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
 import { UserProvider } from '@/context/UserContext';
-import { Masthead, Footer, NotificationToast } from '@/components';
+import { Masthead, Footer, NotificationToast, TeaAssistant } from '@/components';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://tirma.tea'),
@@ -57,6 +57,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             </main>
             <Footer />
             <NotificationToast />
+            <TeaAssistant />
           </CartProvider>
         </UserProvider>
       </body>
