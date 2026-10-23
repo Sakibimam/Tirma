@@ -58,6 +58,8 @@ export const TeaAssistant: React.FC = () => {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const launcherButtonRef = useRef<HTMLButtonElement>(null);
+  const wasOpenRef = useRef(false);
 
   // Auto-scroll to bottom of messages
   const scrollToBottom = useCallback(() => {
@@ -69,7 +71,11 @@ export const TeaAssistant: React.FC = () => {
       scrollToBottom();
       // Focus input when opening
       setTimeout(() => inputRef.current?.focus(), 150);
+    } else if (wasOpenRef.current) {
+      // Return focus to launcher button when closing (WCAG a11y best practice)
+      launcherButtonRef.current?.focus();
     }
+    wasOpenRef.current = isOpen;
   }, [isOpen, messages, scrollToBottom]);
 
   // Handle ESC key to close
@@ -126,8 +132,13 @@ export const TeaAssistant: React.FC = () => {
 
       if (data?.status === 'api_key_missing') {
         setApiKeyMissing(true);
-        // If a verified offline answer matches the query, show it alongside the API key guidance
-        const sampleAnswer = SAMPLE_ANSWERS[trimmed];
+        // Normalized matching for starter prompts in offline mode
+        const normalizedInput = trimmed.toLowerCase().replace(/[?!.,]+$/, '').trim();
+        const matchedKey = Object.keys(SAMPLE_ANSWERS).find(
+          (k) => k.toLowerCase().replace(/[?!.,]+$/, '').trim() === normalizedInput
+        );
+        const sampleAnswer = matchedKey ? SAMPLE_ANSWERS[matchedKey] : undefined;
+
         const assistantMessage: ChatMessage = {
           id: `ast-${Date.now()}`,
           role: 'assistant',
@@ -206,7 +217,35 @@ export const TeaAssistant: React.FC = () => {
     setInput('');
   };
 
-  // Helper to format basic line breaks and bullet points safely
+  // Inline formatting helper for markdown bold (**text**) and markdown links ([text](url))
+  const renderFormattedInline = (lineText: string) => {
+    const tokens = lineText.split(/(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*)/g);
+    return tokens.map((token, i) => {
+      if (token.startsWith('**') && token.endsWith('**')) {
+        return (
+          <strong key={i} className="font-semibold text-bark">
+            {token.slice(2, -2)}
+          </strong>
+        );
+      }
+      const linkMatch = token.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+      if (linkMatch) {
+        const [, label, href] = linkMatch;
+        return (
+          <a
+            key={i}
+            href={href}
+            className="text-garden-500 font-medium underline underline-offset-2 hover:text-garden-600 transition-colors"
+          >
+            {label}
+          </a>
+        );
+      }
+      return token;
+    });
+  };
+
+  // Helper to format basic line breaks, bullet points, and inline emphasis safely
   const formatMessageText = (text: string) => {
     return text.split('\n').map((line, idx) => {
       const isBullet = line.trim().startsWith('* ') || line.trim().startsWith('- ');
@@ -214,20 +253,21 @@ export const TeaAssistant: React.FC = () => {
 
       return (
         <span key={idx} className={isBullet ? 'block pl-3 text-xs sm:text-sm my-0.5' : 'block text-xs sm:text-sm my-1'}>
-          {isBullet && <span className="inline-block w-2 text-[#C9962B] font-bold mr-1">•</span>}
-          {cleanLine}
+          {isBullet && <span className="inline-block w-2 text-saffron font-bold mr-1">•</span>}
+          {renderFormattedInline(cleanLine)}
         </span>
       );
     });
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 select-none">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40">
       {/* Floating Launcher Button */}
       {!isOpen && (
         <button
+          ref={launcherButtonRef}
           onClick={() => setIsOpen(true)}
-          className="group relative flex items-center gap-2.5 rounded-full bg-[#2F4A36] px-4 py-3 text-white shadow-2xl transition-all duration-300 hover:bg-[#253B2B] hover:scale-105 hover:shadow-garden-500/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9962B] focus-visible:ring-offset-2 border border-[#C9962B]/30"
+          className="group relative flex items-center gap-2.5 rounded-full bg-garden-500 px-4 py-3 text-white shadow-2xl transition-all duration-300 hover:bg-garden-600 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron focus-visible:ring-offset-2 border border-saffron/30 select-none"
           aria-label="Open Tirma Tea Assistant"
           aria-haspopup="dialog"
           aria-expanded={false}
@@ -235,13 +275,13 @@ export const TeaAssistant: React.FC = () => {
           id="tirma-assistant-trigger"
         >
           <div className="relative flex items-center justify-center">
-            <Coffee className="h-5 w-5 text-[#E8DCC4] transition-transform group-hover:rotate-12" />
+            <Coffee className="h-5 w-5 text-cream transition-transform group-hover:rotate-12" />
             <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C9962B] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#C9962B]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-saffron opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-saffron"></span>
             </span>
           </div>
-          <span className="font-serif text-sm font-medium tracking-wide text-[#FBF7F0]">
+          <span className="font-display text-sm font-medium tracking-wide text-cream">
             Tea Assistant
           </span>
         </button>
@@ -254,18 +294,18 @@ export const TeaAssistant: React.FC = () => {
           role="dialog"
           aria-modal="false"
           aria-labelledby="tirma-assistant-title"
-          className="flex flex-col w-[calc(100vw-2rem)] sm:w-[400px] h-[540px] max-h-[82vh] rounded-2xl bg-[#FBF7F0] border border-[#DFD8C8] shadow-2xl overflow-hidden animate-fade-in font-sans"
+          className="flex flex-col w-[calc(100vw-2rem)] sm:w-[400px] h-[540px] max-h-[82vh] rounded-2xl bg-cream border border-[#DFD8C8] shadow-2xl overflow-hidden animate-fade-in font-sans"
         >
           {/* Header */}
-          <div className="flex items-center justify-between bg-[#2F4A36] px-4 py-3.5 text-[#FBF7F0] border-b border-[#243B2B]">
+          <div className="flex items-center justify-between bg-garden-500 px-4 py-3.5 text-cream border-b border-garden-600 select-none">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#3D5C45] border border-[#C9962B]/40 text-[#E8DCC4]">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#3D5C45] border border-saffron/40 text-cream">
                 <Coffee className="h-4 w-4" />
               </div>
               <div>
                 <h2
                   id="tirma-assistant-title"
-                  className="font-serif text-base font-medium text-cream leading-tight"
+                  className="font-display text-base font-medium text-cream leading-tight"
                 >
                   Tirma Tea Assistant
                 </h2>
@@ -374,7 +414,7 @@ export const TeaAssistant: React.FC = () => {
             {/* API Key Missing Guidance Card */}
             {apiKeyMissing && (
               <div className="rounded-xl border border-[#C9962B]/40 bg-[#FFFDF9] p-3.5 text-xs text-[#4A3E31] shadow-sm">
-                <div className="flex items-center gap-2 font-serif text-sm font-semibold text-[#784712]">
+                <div className="flex items-center gap-2 font-display text-sm font-semibold text-[#784712]">
                   <Key className="h-4 w-4 text-[#C9962B]" />
                   <span>Gemini API Key Setup</span>
                 </div>

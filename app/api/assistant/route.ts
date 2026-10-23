@@ -191,11 +191,38 @@ export async function POST(req: NextRequest) {
     // 4. Construct Gemini API Request
     const systemPrompt = buildGroundedSystemPrompt();
 
-    // Map conversation history to Gemini contents structure
-    const contents = sanitizedHistory.map((h) => ({
-      role: h.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text: h.content }],
-    }));
+    // Map conversation history to Gemini contents structure.
+    // Gemini API constraints:
+    // 1. The first turn in contents MUST be 'user' (drop any initial welcome/assistant greeting).
+    // 2. Turns must strictly alternate ('user' -> 'model' -> 'user' -> 'model').
+    // 3. The final turn must be the current 'user' message.
+    const contents: Array<{ role: 'user' | 'model'; parts: Array<{ text: string }> }> = [];
+
+    // Skip any leading assistant messages in history
+    let startIndex = 0;
+    while (startIndex < sanitizedHistory.length && sanitizedHistory[startIndex].role !== 'user') {
+      startIndex++;
+    }
+
+    let expectedRole: 'user' | 'model' = 'user';
+    for (let i = startIndex; i < sanitizedHistory.length; i++) {
+      const item = sanitizedHistory[i];
+      const geminiRole = item.role === 'assistant' ? 'model' : 'user';
+
+      if (geminiRole === expectedRole) {
+        contents.push({
+          role: geminiRole,
+          parts: [{ text: item.content }],
+        });
+        expectedRole = expectedRole === 'user' ? 'model' : 'user';
+      }
+    }
+
+    // If the last history message was a 'user' message (e.g. if previous assistant call failed),
+    // remove it so that the new user message doesn't result in consecutive 'user' turns.
+    if (contents.length > 0 && contents[contents.length - 1].role === 'user') {
+      contents.pop();
+    }
 
     // Add current user message
     contents.push({
@@ -224,7 +251,7 @@ export async function POST(req: NextRequest) {
           },
           generationConfig: {
             temperature: 0.3,
-            maxOutputTokens: 600,
+            maxOutputTokens: 800,
           },
         }),
         signal: controller.signal,
@@ -247,6 +274,8 @@ export async function POST(req: NextRequest) {
 
     if (!geminiResponse.ok) {
       const errorData = await geminiResponse.json().catch(() => null);
+      console.error('Gemini API error:', geminiResponse.status, errorData);
+
       // Check for authentication / permission error
       if (geminiResponse.status === 400 || geminiResponse.status === 403) {
         const errorMsg = errorData?.error?.message || '';
@@ -271,7 +300,13 @@ export async function POST(req: NextRequest) {
 
     const data = await geminiResponse.json();
     const candidate = data.candidates?.[0];
-    const replyText = candidate?.content?.parts?.[0]?.text;
+    
+    // Extract text parts (filtering out any thought/reasoning blocks for hybrid reasoning models)
+    const textParts = candidate?.content?.parts
+      ?.filter((p: { text?: string; thought?: boolean }) => typeof p.text === 'string' && !p.thought)
+      ?.map((p: { text: string }) => p.text) || [];
+
+    const replyText = textParts.join('\n').trim() || candidate?.content?.parts?.[0]?.text;
 
     if (!replyText || replyText.trim() === '') {
       return NextResponse.json({
