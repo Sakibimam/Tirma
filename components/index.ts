@@ -12,3 +12,4 @@ export { ShoppingCartDrawer } from './ShoppingCartDrawer';
 export { UserAuthModal } from './UserAuthModal';
 export { SearchModal } from './SearchModal';
 export { NotificationToast } from './NotificationToast';
+export { TeaAssistant } from './TeaAssistant';
